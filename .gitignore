@@ -1,0 +1,12 @@
+/out
+*.iml
+/logs
+/.idea
+/.slcache
+/target
+.project
+.classpath
+nbactions.xml
+!/src
+!pom.xml
+!readme.md
