@@ -8,5 +8,5 @@
 .classpath
 nbactions.xml
 !/src
-!pom.xml
-!readme.md
+pom.xml
+readme.md
