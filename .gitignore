@@ -10,3 +10,4 @@ nbactions.xml
 !/src
 pom.xml
 readme.md
+.gradle/
