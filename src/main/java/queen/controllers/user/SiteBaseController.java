@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("site")
+@RequestMapping("/")
 public class SiteBaseController {
 
-    @RequestMapping("/home")
+    @RequestMapping("/")
     public String home() {
         return "site/home";
     }

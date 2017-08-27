@@ -1,15 +1,9 @@
 package queen.models.admin;
 
-import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 public class Admin {
@@ -24,6 +18,7 @@ public class Admin {
 
     @NotNull
     @Size(min = 3, max = 200)
+    @Column(unique = true)
     private String email;
 
     @NotNull

@@ -12,15 +12,14 @@ public class Customer {
     private Long id;
 
     @Size(min = 3, max = 200)
-    @Column(unique = true)
     private String firstName;
 
     @NotNull
     @Size(min = 3, max = 200)
-    @Column(unique = true)
     private String lastName;
 
     @Size(min = 3, max = 200)
+    @Column(unique = true)
     private String email;
 
     @Size(min = 3, max = 100)
