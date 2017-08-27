@@ -1,6 +1,7 @@
 /out
 *.iml
 /logs
+/.git
 /.idea
 /.slcache
 /target

@@ -48,9 +48,54 @@ public class BlogPost {
     @JoinColumn(name = "blog_id")
     private Blog blog;
     
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "id")
     List<BlogComment> comments = new ArrayList<>();
 
+    public Long getId() {
+        return id;
+    }
 
-    
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Admin getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Admin createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Blog getBlog() {
+        return blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
+    }
+
+    public List<BlogComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<BlogComment> comments) {
+        this.comments = comments;
+    }
 }

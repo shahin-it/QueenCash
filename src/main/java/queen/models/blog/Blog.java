@@ -39,7 +39,7 @@ public class Blog {
     @Size(max = 500)
     private String thumbnail;
     
-    @OneToMany(mappedBy = "blog_post_id")
+    @OneToMany(mappedBy = "id")
     private List<BlogPost> blogPosts = new ArrayList<>();
 
     public String getName() {
