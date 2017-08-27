@@ -19,12 +19,16 @@ public class Admin {
     private long id;
 
     @NotNull
-    @Size(min = 3, max = 80)
+    @Size(min = 2, max = 200)
+    private String name;
+
+    @NotNull
+    @Size(min = 3, max = 200)
     private String email;
 
     @NotNull
-    @Size(min = 2, max = 100)
-    private String name;
+    @Size(min = 3, max = 100)
+    private String password;
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
@@ -38,6 +42,14 @@ public class Admin {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -46,12 +58,12 @@ public class Admin {
         this.email = email;
     }
 
-    public String getName() {
-        return name;
+    public String getPassword() {
+        return password;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getCreated() {
