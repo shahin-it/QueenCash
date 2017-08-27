@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import queen.models.admin.BlogAdmin;
+import queen.models.admin.Admin;
 
 /**
  *
@@ -33,10 +33,6 @@ public class BlogComment {
     @Size(min = 5, max = 5000)
     private String comment;
     private String ip;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_id")
-    private BlogAdmin admin;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
@@ -66,14 +62,6 @@ public class BlogComment {
         this.ip = ip;
     }
 
-    public BlogAdmin getBy() {
-        return admin;
-    }
-
-    public void setBy(BlogAdmin admin) {
-        this.admin = admin;
-    }
-
     public BlogPost getPost() {
         return post;
     }
@@ -81,5 +69,4 @@ public class BlogComment {
     public void setPost(BlogPost post) {
         this.post = post;
     }
-    
 }

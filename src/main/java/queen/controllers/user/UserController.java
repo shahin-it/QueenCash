@@ -1,7 +1,7 @@
 package queen.controllers.user;
 
-import queen.models.admin.BlogAdmin;
-import queen.service.admin.BlogAdminService;
+import queen.models.admin.Admin;
+import queen.service.BlogService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(value="/user")
+@RequestMapping(value="user")
 public class UserController {
 
   @Autowired
-  private BlogAdminService _userDao;
+  private BlogService blogService;
   
-  @RequestMapping(value="/delete")
+  @RequestMapping("/delete")
   @ResponseBody
   public String delete(long id) {
     try {
-      BlogAdmin user = new BlogAdmin(id);
-      _userDao.delete(user);
+      Admin user = new Admin();
+      blogService.delete(user);
     }
     catch(Exception ex) {
       return ex.getMessage();
@@ -28,12 +28,12 @@ public class UserController {
     return "User succesfully deleted!";
   }
   
-  @RequestMapping(value="/get-by-email")
+  @RequestMapping("/getByEmail")
   @ResponseBody
   public String getByEmail(String email) {
     String userId;
     try {
-      BlogAdmin user = _userDao.getByEmail(email);
+      Admin user = blogService.getByEmail(email);
       userId = String.valueOf(user.getId());
     }
     catch(Exception ex) {
@@ -42,12 +42,12 @@ public class UserController {
     return "The user id is: " + userId;
   }
 
-  @RequestMapping(value="/save")
+  @RequestMapping("/save")
   @ResponseBody
   public String create(String email, String name) {
     try {
-      BlogAdmin user = new BlogAdmin(email, name);
-      _userDao.save(user);
+      Admin user = new Admin();
+      blogService.save(user);
     }
     catch(Exception ex) {
       return ex.getMessage();

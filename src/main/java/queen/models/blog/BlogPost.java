@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import queen.models.admin.BlogAdmin;
+import queen.models.admin.Admin;
 
 /**
  *
@@ -42,7 +42,7 @@ public class BlogPost {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
-    private BlogAdmin createdBy;
+    private Admin createdBy;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "blog_id")
@@ -51,52 +51,6 @@ public class BlogPost {
     @OneToMany(mappedBy = "post")
     List<BlogComment> comments = new ArrayList<>();
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public BlogAdmin getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(BlogAdmin createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Blog getBlog() {
-        return blog;
-    }
-
-    public void setBlog(Blog blog) {
-        this.blog = blog;
-    }
-
-    public List<BlogComment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<BlogComment> comments) {
-        this.comments = comments;
-    }
     
 }

@@ -12,8 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="blog_admin")
-public class BlogAdmin {
+public class Admin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,39 +30,28 @@ public class BlogAdmin {
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
-    public BlogAdmin() { }
-
-    public BlogAdmin(long id) { 
-      this.id = id;
-    }
-
-    public BlogAdmin(String email, String name) {
-      this.email = email;
-      this.name = name;
-    }
-
     public long getId() {
-      return id;
+        return id;
     }
 
-    public void setId(long value) {
-      this.id = value;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getEmail() {
-      return email;
+        return email;
     }
 
-    public void setEmail(String value) {
-      this.email = value;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
-      return name;
+        return name;
     }
 
-    public void setName(String value) {
-      this.name = value;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getCreated() {
@@ -73,5 +61,4 @@ public class BlogAdmin {
     public void setCreated(Date created) {
         this.created = created;
     }
-  
 }

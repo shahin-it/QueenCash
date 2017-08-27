@@ -3,18 +3,19 @@ package queen.controllers.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import queen.models.admin.BlogAdmin;
-import queen.service.admin.BlogAdminService;
+import queen.models.admin.Admin;
+import queen.service.BlogService;
 
 @Controller
+@RequestMapping("admin")
 public class AdminController {
 
     @Autowired
-    private BlogAdminService adminService;
+    private BlogService blogService;
 
-    @RequestMapping("/")
+    @RequestMapping("")
     public String index() {
-        return "admin";
+        return "admin/controlPanel";
     }
 
     @RequestMapping("/login")
@@ -32,10 +33,10 @@ public class AdminController {
         return "";
     }
 
-    @RequestMapping(value = "/save")
-    public String create(BlogAdmin admin) {
+    @RequestMapping("/save")
+    public String create(Admin admin) {
         try {
-            adminService.save(admin);
+            blogService.save(admin);
         } catch (Exception ex) {
             return ex.getMessage();
         }

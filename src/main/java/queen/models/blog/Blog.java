@@ -22,7 +22,6 @@ import javax.validation.constraints.Size;
  * @author shahin
  */
 @Entity
-@Table(name="blog")
 public class Blog {
 
     @Id
@@ -40,7 +39,7 @@ public class Blog {
     @Size(max = 500)
     private String thumbnail;
     
-    @OneToMany(mappedBy = "blog")
+    @OneToMany(mappedBy = "blog_post_id")
     private List<BlogPost> blogPosts = new ArrayList<>();
 
     public String getName() {
