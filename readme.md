@@ -5,7 +5,7 @@ http://blog.queen.com/2014/08/17/use-mysql-database-in-a-spring-boot-web-applica
 
 ### Usage
 
-- Run the application and go on http://localhost:8080/
+- Run the application and go on http://localhost/admin
 - Use the following urls to invoke controllers methods and see the interactions
   with the database:
     * `/user/save?email=[email]&name=[name]`: create a new user with an 
