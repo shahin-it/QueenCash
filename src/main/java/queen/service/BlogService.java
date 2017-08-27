@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import queen.models.admin.Admin;
-import queen.repository.BlogRepository;
+import queen.repository.QueenRepository;
 
 @Service
 public class BlogService {
@@ -13,18 +13,15 @@ public class BlogService {
   @Autowired
   private SessionFactory sessionFactory;
   @Autowired
-  private BlogRepository blogRepository;
-  
-  public void setBlogAdminRepository(BlogRepository adminRepository) {
-      this.blogRepository = adminRepository;
-  }
+  private QueenRepository blogRepository;
+
   
   private Session getSession() {
     return sessionFactory.getCurrentSession();
   }
 
   public Admin save(Admin admin) {
-    return blogRepository.save(admin);
+    return (Admin) blogRepository.save(admin);
   }
   
   public void delete(Admin admin) {
