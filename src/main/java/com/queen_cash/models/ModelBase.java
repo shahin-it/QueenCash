@@ -1,5 +1,6 @@
 package com.queen_cash.models;
 
+import com.queen_cash.models.admin.Administrator;
 import com.queen_cash.util.AppUtil;
 
 import javax.persistence.*;
@@ -16,7 +17,10 @@ public abstract class ModelBase {
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    private Date created = AppUtil.getCurrentDateTime();
+    private Date created = AppUtil.currentDateTime();
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    private Administrator createdBy = AppUtil.loggedAdministrator();
 
     public long getId() {
         return id;
@@ -32,5 +36,13 @@ public abstract class ModelBase {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public Administrator getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Administrator createdBy) {
+        this.createdBy = createdBy;
     }
 }
