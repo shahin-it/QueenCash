@@ -1,4 +1,4 @@
-package queen.configs;
+package com.queen_cash.configs;
 
 import java.util.Properties;
 

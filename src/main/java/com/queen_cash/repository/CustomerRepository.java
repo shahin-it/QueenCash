@@ -1,6 +1,6 @@
-package queen.repository;
+package com.queen_cash.repository;
 
-import queen.models.Customer;
+import com.queen_cash.models.Customer;
 
 import javax.transaction.Transactional;
 

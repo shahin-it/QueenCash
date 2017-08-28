@@ -1,4 +1,4 @@
-package queen.controllers.user;
+package com.queen_cash.controllers.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

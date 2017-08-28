@@ -1,4 +1,6 @@
-package queen.models;
+package com.queen_cash.models;
+
+import com.queen_cash.util.AppUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -6,6 +8,7 @@ import java.util.Date;
 
 @MappedSuperclass
 public abstract class ModelBase {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false)
@@ -13,7 +16,7 @@ public abstract class ModelBase {
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    private Date created = new Date();
+    private Date created = AppUtil.getCurrentDateTime();
 
     public long getId() {
         return id;

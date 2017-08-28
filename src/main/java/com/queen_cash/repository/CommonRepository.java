@@ -1,8 +1,8 @@
-package queen.repository;
+package com.queen_cash.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
-import queen.models.ModelBase;
+import com.queen_cash.models.ModelBase;
 
 import java.io.Serializable;
 

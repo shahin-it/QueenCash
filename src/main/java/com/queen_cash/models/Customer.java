@@ -1,4 +1,4 @@
-package queen.models;
+package com.queen_cash.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

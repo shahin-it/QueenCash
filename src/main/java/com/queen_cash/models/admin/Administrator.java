@@ -1,11 +1,10 @@
-package queen.models.admin;
+package com.queen_cash.models.admin;
 
-import queen.models.ModelBase;
+import com.queen_cash.models.ModelBase;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
 
 @Entity
 public class Administrator extends ModelBase{

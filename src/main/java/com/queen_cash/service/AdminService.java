@@ -1,10 +1,10 @@
-package queen.service;
+package com.queen_cash.service;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import queen.models.admin.Administrator;
-import queen.repository.AdminRepository;
+import com.queen_cash.models.admin.Administrator;
+import com.queen_cash.repository.AdminRepository;
 
 import java.util.List;
 import java.util.Map;
