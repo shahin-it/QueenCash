@@ -1,6 +1,5 @@
 package com.queen_cash.service;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.queen_cash.models.admin.Administrator;
@@ -11,8 +10,6 @@ import java.util.Map;
 
 @Service
 public class AdminService {
-    @Autowired
-    private SessionFactory sessionFactory;
     @Autowired
     AdminRepository adminRepository;
 
