@@ -20,6 +20,7 @@ public abstract class ModelBase {
     private Date created = AppUtil.currentDateTime();
 
     @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "created_by_id")
     private Administrator createdBy = AppUtil.loggedAdministrator();
 
     public long getId() {
