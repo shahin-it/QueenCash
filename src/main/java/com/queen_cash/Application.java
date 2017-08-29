@@ -1,7 +1,13 @@
 package com.queen_cash;
 
+import com.queen_cash.util.AppUtil;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
+import org.springframework.context.annotation.Bean;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 @SpringBootApplication
 public class Application {
@@ -9,5 +15,15 @@ public class Application {
       new SpringApplicationBuilder()
               .sources(Application.class)
               .run(args);
+    }
+
+    @Bean
+    public ServletContextInitializer initializer() {
+        return new ServletContextInitializer() {
+            @Override
+            public void onStartup(ServletContext servletContext) throws ServletException {
+                AppUtil.servletContext = servletContext;
+            }
+        };
     }
 }
