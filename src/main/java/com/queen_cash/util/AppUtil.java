@@ -1,6 +1,6 @@
 package com.queen_cash.util;
 
-import com.queen_cash.models.admin.Administrator;
+import com.queen_cash.domain.admin.Administrator;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

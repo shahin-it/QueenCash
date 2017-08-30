@@ -2,10 +2,10 @@ package com.queen_cash.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
-import com.queen_cash.models.ModelBase;
+import com.queen_cash.domain.model.DomainBase;
 
 import java.io.Serializable;
 
 @NoRepositoryBean
-public interface CommonRepository<T extends ModelBase> extends CrudRepository<T, Serializable> {
+public interface CommonRepository<T extends DomainBase> extends CrudRepository<T, Serializable> {
 }

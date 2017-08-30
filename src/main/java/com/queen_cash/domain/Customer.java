@@ -1,33 +1,42 @@
-package com.queen_cash.models.admin;
+package com.queen_cash.domain;
 
-import com.queen_cash.models.ModelBase;
+import com.queen_cash.domain.model.DomainBase;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Administrator extends ModelBase{
+public class Customer extends DomainBase {
+
+    @Size(min = 3, max = 200)
+    private String firstName;
 
     @NotNull
-    @Size(min = 2, max = 200)
-    private String name;
+    @Size(min = 3, max = 200)
+    private String lastName;
 
-    @NotNull
     @Size(min = 3, max = 200)
     @Column(unique = true)
     private String email;
 
-    @NotNull
     @Size(min = 3, max = 100)
     private String password;
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -45,5 +54,4 @@ public class Administrator extends ModelBase{
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

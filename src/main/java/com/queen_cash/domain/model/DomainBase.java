@@ -1,6 +1,6 @@
-package com.queen_cash.models;
+package com.queen_cash.domain.model;
 
-import com.queen_cash.models.admin.Administrator;
+import com.queen_cash.domain.admin.Administrator;
 import com.queen_cash.util.AppUtil;
 
 import javax.persistence.*;
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @MappedSuperclass
-public abstract class ModelBase {
+public abstract class DomainBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,7 +19,7 @@ public abstract class ModelBase {
     @Temporal(TemporalType.TIMESTAMP)
     private Date created = AppUtil.currentDateTime();
 
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @OneToOne
     private Administrator createdBy = AppUtil.loggedAdministrator();
 
     public long getId() {

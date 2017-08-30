@@ -1,6 +1,6 @@
 package com.queen_cash.controllers.user;
 
-import com.queen_cash.models.admin.Administrator;
+import com.queen_cash.domain.admin.Administrator;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
