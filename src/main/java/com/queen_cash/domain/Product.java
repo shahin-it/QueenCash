@@ -24,4 +24,9 @@ public class Product extends DomainBase {
     private Double costPrice = 0.0;
     @NotNull
     private Long stockQuantity = 0L;
+
+    private String size;
+    private String color;
+    private String weight;
+    private String weightUnit;
 }

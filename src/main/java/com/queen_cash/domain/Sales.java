@@ -18,7 +18,6 @@ public class Sales extends DomainBase {
     @NotNull
     private Double salesTotal = 0.0;
 
-    @NotNull
     @OneToOne
     private Administrator salesMan;
     @OneToOne
