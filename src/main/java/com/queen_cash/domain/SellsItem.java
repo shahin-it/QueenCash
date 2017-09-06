@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class SalesItem extends DomainBase {
+public class SellsItem extends DomainBase {
     @NotNull
     private Long productId;
     @NotNull

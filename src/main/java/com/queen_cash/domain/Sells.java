@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
-public class Sales extends DomainBase {
+public class Sells extends DomainBase {
 
     @OneToMany
-    private Collection<SalesItem> salesItems = new ArrayList<>();
+    private Collection<SellsItem> sellsItems = new ArrayList<>();
     @NotNull
     private Double salesTotal = 0.0;
 
