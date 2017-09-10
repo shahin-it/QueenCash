@@ -2,6 +2,7 @@ package com.queen_cash.domain;
 
 import com.queen_cash.domain.admin.Administrator;
 import com.queen_cash.domain.model.DomainBase;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
+@Data
 public class Sells extends DomainBase {
 
     @OneToMany
