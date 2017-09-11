@@ -14,7 +14,7 @@ public class AdminController {
 
     @RequestMapping("/login")
     public String login(String email, String password, boolean remember) {
-        return "";
+        return "login";
     }
 
     @RequestMapping("/register")
