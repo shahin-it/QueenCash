@@ -15,9 +15,4 @@ public class SellsItem extends DomainBase {
     private Long quantity = 0L;
     @NotNull
     private Double priceTotal = 0.0;
-
-    public SellsItem() {
-        Sells s = new Sells();
-        s.getSalesManName();
-    }
 }
