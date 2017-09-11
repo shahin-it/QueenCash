@@ -38,4 +38,26 @@ public class AppUtil {
             return null;
         }
     }
+
+    public static Long loggedAdmin() {
+        return (Long) currentSession().getAttribute("admin");
+    }
+
+    public static Long loggedCustomer() {
+        return (Long) currentSession().getAttribute("customer");
+    }
+
+    public static HttpSession addSessionAttr(String name, Object value) {
+        HttpSession session = currentSession();
+        session.setAttribute(name, value);
+        return session;
+    }
+
+    public static void removeSessionAttr(String attr) {
+        currentSession().removeAttribute(attr);
+    }
+
+    public static String baseUrl() {
+        return "/";
+    }
 }
