@@ -1,40 +1,47 @@
 package com.queen_cash.interceptor;
 
+import com.queen_cash.domain.admin.Administrator;
+import com.queen_cash.repository.AdminRepository;
+import com.queen_cash.util.AppUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
 
 @Component
 public class RequestInterceptor extends HandlerInterceptorAdapter {
+    @Autowired
+    AdminRepository adminRepository;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
-        System.out.println("In preHandle we are Intercepting the Request");
-        System.out.println("____________________________________________");
-        String requestURI = request.getRequestURI();
-        Integer personId = ServletRequestUtils.getIntParameter(request, "personId", 0);
-        System.out.println("RequestURI::" + requestURI +
-                " || Search for Person with personId ::" + personId);
-        System.out.println("____________________________________________");
+        HandlerMethod handlerMethod = (HandlerMethod) object;
+        String canonicalName = handlerMethod.getBeanType().getCanonicalName();
+        Method method = handlerMethod.getMethod();
+        if(canonicalName.startsWith("com.queen_cash.controllers.admin")) {
+            Long adminId = AppUtil.loggedAdmin();
+            if(adminId == null) {
+                response.sendRedirect(AppUtil.baseUrl() + "auth/adminLogin");
+            } else {
+                Administrator admin = adminRepository.findOne(adminId);
+                if(admin.getId() != adminId) {
+                    AppUtil.removeSessionAttr("admin");
+                    response.sendRedirect(AppUtil.baseUrl() + "auth/adminLogin");
+                }
+            }
+        }
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object object, ModelAndView model) throws Exception {
-        System.out.println("_________________________________________");
-        System.out.println("In postHandle request processing "
-                + "completed by @RestController");
-        System.out.println("_________________________________________");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object object, Exception arg3) throws Exception {
-        System.out.println("________________________________________");
-        System.out.println("In afterCompletion Request Completed");
-        System.out.println("________________________________________");
     }
 }
