@@ -1,14 +1,15 @@
-package com.queen_cash.controllers.user;
+package com.queen_cash.controllers.customer;
 
 import com.queen_cash.domain.admin.Administrator;
 
+import com.queen_cash.util.AppUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("user")
-public class UserController {
+@RequestMapping("customer")
+public class CustomerController {
   
   @RequestMapping("/delete")
   @ResponseBody
@@ -32,6 +33,12 @@ public class UserController {
       return ex.getMessage();
     }
     return "User succesfully saved!";
+  }
+
+  @RequestMapping("/logout")
+  public String logout() {
+    AppUtil.removeSessionAttr("customer");
+    return "redirect:" + AppUtil.baseUrl() + "auth/adminLogin";
   }
 
 } // class UserController

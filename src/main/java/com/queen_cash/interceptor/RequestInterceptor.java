@@ -3,6 +3,7 @@ package com.queen_cash.interceptor;
 import com.queen_cash.domain.admin.Administrator;
 import com.queen_cash.repository.AdminRepository;
 import com.queen_cash.util.AppUtil;
+import com.queen_cash.util.NameConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -22,7 +23,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
         HandlerMethod handlerMethod = (HandlerMethod) object;
         String canonicalName = handlerMethod.getBeanType().getCanonicalName();
         Method method = handlerMethod.getMethod();
-        if(canonicalName.startsWith("com.queen_cash.controllers.admin")) {
+        if(canonicalName.startsWith(NameConstant.ADMIN_PACKAGE)) {
             Long adminId = AppUtil.loggedAdmin();
             if(adminId == null) {
                 response.sendRedirect(AppUtil.baseUrl() + "auth/adminLogin");
@@ -33,6 +34,8 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
                     response.sendRedirect(AppUtil.baseUrl() + "auth/adminLogin");
                 }
             }
+        } else if(canonicalName.startsWith(NameConstant.CUSTOMER_PACKAGE)) {
+
         }
         return true;
     }
