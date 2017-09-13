@@ -5,6 +5,7 @@ import com.queen_cash.repository.AdminRepository;
 import com.queen_cash.util.AppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,8 +43,22 @@ public class AuthController {
     }
 
     @RequestMapping("/resetAdminPassword")
-    public String resetAdminPassword() {
-        return "";
+    public String resetAdminPassword(Model model, String email) {
+        Administrator admin = adminRepository.findByEmail(email);
+        if(admin != null) {
+            model.addAttribute("status", "success");
+            model.addAttribute("message", "Password reset success");
+        } else {
+            model.addAttribute("status", "danger");
+            model.addAttribute("message", "Invalid email address");
+        }
+        return "admin/login";
+    }
+
+    @RequestMapping("/test")
+    public String test(Model model) {
+        model.addAttribute("message", "shahin");
+        return "test";
     }
 
     @RequestMapping("/registerCustomer")

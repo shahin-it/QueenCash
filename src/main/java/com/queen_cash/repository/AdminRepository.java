@@ -7,4 +7,5 @@ import javax.transaction.Transactional;
 @Transactional
 public interface AdminRepository extends CommonRepository<Administrator> {
     public Administrator findByEmailAndPassword(String email, String password);
+    public Administrator findByEmail(String email);
 }

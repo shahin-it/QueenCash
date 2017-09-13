@@ -17,6 +17,10 @@ public class Application {
               .run(args);
     }
 
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Application.class);
+    }
+
     @Bean
     public ServletContextInitializer initializer() {
         return new ServletContextInitializer() {
