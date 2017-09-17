@@ -1,5 +1,9 @@
-<body xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/_admin" layout:fragment="content">
-    <section class="container" id="log-container">
+<link rel="stylesheet" type="text/css" href="/lib/bootstrap/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="/css/admin/login.css"/>
+<script type="text/javascript" src="/js/lib/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/js/admin/login.js"></script>
+<body xmlns:th="http://www.thymeleaf.org">
+    <section th:with="baseUrl=${@app.baseUrl()}" class="container" id="log-container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <th:block th:if="${status}">
@@ -23,7 +27,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <form id="login-form" th:action="@{/auth/authenticateAdmin}" method="post">
+                                <form id="login-form" th:action="*{baseUrl + 'auth/authenticateAdmin'}" method="post">
                                     <div class="form-group">
                                         <input type="text" name="email" id="username" tabindex="1" class="form-control" placeholder="Username" required="" value=""/>
                                     </div>
@@ -51,7 +55,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                <form id="reset-form" th:action="@{/auth/resetAdminPassword}" method="post" role="form" style="display: none;">
+                                <form id="reset-form" th:action="*{baseUrl + 'auth/resetAdminPassword'}" method="post" role="form" style="display: none;">
                                     <div class="form-group">
                                         <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value=""/>
                                     </div>

@@ -17,7 +17,7 @@
     <script type="text/javascript" src="/js/admin/admin.js"></script>
     <title>Queen Cash::Admin Panel</title>
 </head>
-<body class="sidebar-mini fixed">
+<body th:with="baseUrl=${@app.baseUrl()}" class="sidebar-mini fixed">
 <div class="wrapper">
     <!-- Navbar-->
     <header class="main-header hidden-print"><a class="logo" href="index.html">Vali</a>
@@ -44,7 +44,7 @@
                         <ul class="dropdown-menu settings-menu">
                             <li><a href="page-user.html"><i class="fa fa-cog fa-lg"></i> Settings</a></li>
                             <li><a href="page-user.html"><i class="fa fa-user fa-lg"></i> Profile</a></li>
-                            <li><a href="page-login.html"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
+                            <li><a th:href="${baseUrl + 'admin/logout'}"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -63,7 +63,7 @@
             </div>
             <!-- Sidebar Menu-->
             <ul class="sidebar-menu">
-                <li class="active"><a href="index.html"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
+                <li class="active"><a th:href="${baseUrl + 'admin'}"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
                 <li class="treeview"><a href="#"><i class="fa fa-laptop"></i><span>UI Elements</span><i class="fa fa-angle-right"></i></a>
                     <ul class="treeview-menu">
                         <li><a href="bootstrap-components.html"><i class="fa fa-circle-o"></i> Bootstrap Elements</a></li>
@@ -72,7 +72,9 @@
                         <li><a href="widgets.html"><i class="fa fa-circle-o"></i> Widgets</a></li>
                     </ul>
                 </li>
-                <li><a href="charts.html"><i class="fa fa-pie-chart"></i><span>Charts</span></a></li>
+                <li><a th:href="${baseUrl + 'brandAdmin/list'}"><i class="fa fa-pie-chart"></i><span>Brand</span></a></li>
+                <li><a href="charts.html"><i class="fa fa-pie-chart"></i><span>Category</span></a></li>
+                <li><a href="charts.html"><i class="fa fa-pie-chart"></i><span>Product</span></a></li>
                 <li class="treeview"><a href="#"><i class="fa fa-edit"></i><span>Forms</span><i class="fa fa-angle-right"></i></a>
                     <ul class="treeview-menu">
                         <li><a href="form-components.html"><i class="fa fa-circle-o"></i> Form Components</a></li>

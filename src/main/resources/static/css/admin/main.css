@@ -13722,7 +13722,6 @@ be a descendant of the grid when it is being dragged.
 }
 
 .content-wrapper {
-  height: 100%;
   z-index: 800;
   background-color: #E5E5E5;
   margin-left: 230px;
