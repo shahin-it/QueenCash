@@ -1,4 +1,4 @@
-package com.queen_cash.domain;
+package com.queen_cash.domain.commerce;
 
 import com.queen_cash.domain.model.DomainBase;
 
