@@ -24,7 +24,7 @@ var sui = {
         return $.ajax(settings);
     },
     singleTab: function(container, data, config) {
-        if(!container.is(".sui-single-tab")) {
+        if(!container.is(".sui-tabular-content")) {
             return;
         }
         data = $.extend({
@@ -90,6 +90,78 @@ var sui = {
     },
     alert: function($message, $type) {
         alert($message);
+    },
+    renderCreateEdit: function (url, data, config) {
+        var content
+        config = $.extend({
+            target: $(".sui-tabular-content").first(),
+            class: "sidebar-mini fixed",
+            title: "",
+            preSubmit: null
+        }, config);
+        data = $.extend({
+            id: null
+        }, data);
+        if(typeof url != "string") {
+            content = url;
+        }
+        var panel = $('<div class="sui-create-edit-panel '+config.class+'"><span class="close fa fa-close"></span><div class="panel-body"></div></div>');
+        var body = panel.find(".panel-body");
+        if(content && content.length) {
+            panelLoaded(content);
+        } else {
+            body.loader();
+            sui.ajax({
+                url: url,
+                data: data,
+                dataType: "html",
+                complete: function() {
+                    body.loader(false);
+                },
+                success: function(resp) {
+                    panelLoaded(resp.jq);
+                }
+            });
+        }
+
+        function panelLoaded(content) {
+            config.target.hide();
+            config.target.after(panel);
+            body.append(content);
+            content.updateUi();
+            var form = panel.find("form:first");
+            form.ajaxForm({
+                type: "POST",
+                dataType: "json",
+                beforeSubmit: function(arr, $form, options) {
+                    form.loader();
+                    if(config.preSubmit) {
+                        return config.preSubmit.apply(this, arguments);
+                    }
+                },
+                success: function(resp, type) {
+                    form.loader(false);
+                    if(resp && resp.message) {
+                        sui.alert(resp.message);
+                    }
+                    if(config.success) {
+                        config.success.apply(this, arguments);
+                    }
+                    close();
+                },
+                error: function() {
+                    form.loader(false);
+                }
+            });
+            panel.find(".close, .cancel").click(function() {
+                close();
+            })
+            config.loaded && config.loaded.apply(panel, body);
+        }
+        function close() {
+            panel.remove();
+            config.target.show();
+        }
     },
     editPopup: function(url, title, data, config) {
         var content

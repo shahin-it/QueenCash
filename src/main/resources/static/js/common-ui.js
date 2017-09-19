@@ -1,23 +1,6 @@
 /**
  * Created by shahin on 05-Aug-16.
  */
-var app = {
-    ajaxBase: function(controller, action) {
-        var base = window._osc_commerce_admin_ajax_base;
-        if(!base) {
-            base = _osc_commerce_ajax_base;
-        }
-        base = base.replace("##controller##", controller).replace("##action##", action);
-        return base;
-    },
-    base: function(controller, action) {
-        var base = _osc_commerce_base;
-        base = base.replace("##controller##", controller).replace("##action##", action);
-        return base;
-    },
-    tab: {}
-}
-
 Object.defineProperty(String.prototype, "jq", {
     get: function () {
         return jQuery("" + this)

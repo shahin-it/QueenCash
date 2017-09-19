@@ -1,0 +1,26 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <form class="form-horizontal" method="post" th:action="@{/brandAdmin/save}">
+        <fieldset>
+            <legend th:text="${brand.id != null ? 'Edit Brand' : 'Create Brand'}"></legend>
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="inputText">Name</label>
+                <div class="col-lg-10">
+                    <input name="name" class="form-control" id="inputText" type="text" placeholder="Name" th:value="${brand.name}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="textArea">Description</label>
+                <div class="col-lg-10">
+                    <textarea name="description" class="form-control" placeholder="Description" id="textArea" rows="3" th:value="${brand.description}"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button class="btn btn-default cancel" type="button">Cancel</button>
+                    <button class="btn btn-success" type="reset">Reset</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

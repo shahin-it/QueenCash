@@ -1,6 +1,7 @@
 <body xmlns:th="http://www.thymeleaf.org"
      th:with="brand=active" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/_admin"
      layout:fragment="content">
+<div class="sui-tabular-content" id="brand-tab">
     <div class="page-title">
         <div>
             <h1><i class="fa fa-archive"></i>Brands</h1>
@@ -8,7 +9,7 @@
         </div>
         <div>
             <ul class="breadcrumb">
-                <a class="btn btn-primary icon-btn" href=""><i class="fa fa-plus"></i>Add Brand</a>
+                <button class="btn btn-primary icon-btn add-new-button"><i class="fa fa-plus"></i>Add Brand</button>
             </ul>
         </div>
     </div>
@@ -23,10 +24,19 @@
                             <th>#Id</th>
                             <th>Name</th>
                             <th>Description</th>
+                            <th>Created By</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                            <tr th:each="brand : ${brands}">
+                                <td th:text="${brand.id}"></td>
+                                <td th:text="${brand.name}"></td>
+                                <td th:text="${brand.description}"></td>
+                                <td th:text="${brand.createdBy?.name}"></td>
+                                <td class="action-navigator"></td>
+                            </tr>
+                        </tbody>
                     </table>
                     <div class="fc-row table-footer">
                         <div class="col-sm-9 left">
@@ -47,4 +57,5 @@
             </div>
         </div>
     </div>
+</div>
 </body>

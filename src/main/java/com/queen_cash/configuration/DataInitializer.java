@@ -2,13 +2,17 @@ package com.queen_cash.configuration;
 
 import com.queen_cash.domain.admin.Administrator;
 import com.queen_cash.repository.AdminRepository;
+import com.queen_cash.util.AppUtil;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DataInItializer implements ApplicationRunner{
+public class DataInitializer implements ApplicationRunner {
     @Autowired
     private AdminRepository adminRepository;
 

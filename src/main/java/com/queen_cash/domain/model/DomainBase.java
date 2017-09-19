@@ -13,20 +13,20 @@ public abstract class DomainBase {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false)
-    private long id;
+    private Long id;
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date created = AppUtil.currentDateTime();
 
     @OneToOne
-    private Administrator createdBy = AppUtil.loggedAdministrator();
+    private Administrator createdBy;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
