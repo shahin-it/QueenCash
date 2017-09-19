@@ -27,11 +27,18 @@ $.extend($.prototype, {
     },
     mask: function(show) {
         if(show === false) {
-            this.find(".sui-overlay").remove();
+            this.find(".overlay").remove();
         } else {
-            this.append('<div class="sui-overlay"></div>');
+            this.append('<div class="overlay">\n' +
+                '                <div class="m-loader mr-20">\n' +
+                '                  <svg class="m-circular" viewBox="25 25 50 50">\n' +
+                '                  \t<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10"></circle>\n' +
+                '                  </svg>\n' +
+                '                </div>\n' +
+                '                <h3 class="l-text">Loading</h3>\n' +
+                '              </div>');
         }
-        return this.find(".sui-overlay");
+        return this.find(".overlay");
     },
     serializeObject: function () {
         var o = {};

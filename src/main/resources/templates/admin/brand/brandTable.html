@@ -1,0 +1,46 @@
+<div class="row tabular-body" xmlns:th="http://www.thymeleaf.org">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#Id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Created By</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="brand : ${brands}">
+                        <td th:text="${brand.id}"></td>
+                        <td th:text="${brand.name}"></td>
+                        <td th:text="${brand.description}"></td>
+                        <td th:text="${brand.createdBy?.name}"></td>
+                        <td class="action-navigator btn-group" th:attr="data-id=${brand.id}">
+                            <span class="btn btn-info edit"><i class="fa fa-lg fa-edit"></i></span>
+                            <span class="btn btn-warning remove"><i class="fa fa-lg fa-trash"></i></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="fc-row table-footer">
+                    <div class="col-sm-9 left">
+                    </div>
+                    <div class="col-sm-3 right">
+                        <ul class="pagination pagination-sm">
+                            <li class="disabled"><a href="#">«</a></li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">»</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

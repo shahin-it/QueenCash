@@ -15,14 +15,12 @@ $(function() {
         var table = sui.singleTab(tab.body, {}, {
             url: tab.loading_url,
             afterLoad: function() {
-                tab.body.updateUi();
-                tab.init();
             }
         });
         var _init = tab.init;
         tab.init = function () {
             var _self = this;
-            _self.body.find(".add-new-button, .action-navigator .edit").click(function() {
+            _self.body.on("click", ".add-new-button, .action-navigator .edit", function() {
                 var data = this.jq.parent().data() || {};
                 var popup = sui.renderCreateEdit(tab.createEditUrl, data, {
                     target: _self.body,
@@ -31,7 +29,7 @@ $(function() {
                     }
                 });
             });
-            _self.body.find(".navigator .remove").click(function() {
+            _self.body.on("click", ".action-navigator .remove", function() {
                 var data = this.jq.parent().data() || {};
                 sui.confirmDelete(tab.removeUrl, "Are you sure?", data, function() {
                     _self.reload();

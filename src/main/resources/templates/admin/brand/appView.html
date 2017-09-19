@@ -1,0 +1,18 @@
+<body xmlns:th="http://www.thymeleaf.org"
+     th:with="brand=active" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/_admin"
+     layout:fragment="content">
+<div class="sui-tabular-content" id="brand-tab">
+    <div class="page-title">
+        <div>
+            <h1><i class="fa fa-archive"></i>Brands</h1>
+            <p>Manage brand related info</p>
+        </div>
+        <div>
+            <ul class="breadcrumb">
+                <button class="btn btn-primary icon-btn add-new-button"><i class="fa fa-plus"></i>Add Brand</button>
+            </ul>
+        </div>
+    </div>
+    <th:block th:replace="admin/brand/brandTable"></th:block>
+</div>
+</body>

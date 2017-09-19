@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -22,9 +21,9 @@ public class BrandAdmin {
     BrandRepository brandRepository;
 
     @RequestMapping("")
-    String brandList(Model model) {
+    String brandList(Model model, boolean reload) {
         model.addAttribute("brands", brandRepository.findAll());
-        return "admin/brand/listing";
+        return reload ? "admin/brand/brandTable" : "admin/brand/appView";
     }
 
     @RequestMapping("/edit")
@@ -36,17 +35,34 @@ public class BrandAdmin {
 
     @RequestMapping("/save")
     @ResponseBody
-    Map save(Brand brand) {
+    Map save(@RequestParam Map<String, String> params, Long id) {
         Map resp = new HashMap();
         try {
+            Brand brand = id != null ? brandRepository.findOne(id) : new Brand();
             if(brand.getId() == null) {
                 brand.setCreatedBy(AppUtil.loggedAdministrator());
             }
+            brand.setName(params.get("name"));
+            brand.setDescription(params.get("description"));
             brandRepository.save(brand);
             resp.put("message", "Brand save success");
         } catch (Exception e) {
             e.printStackTrace();
             resp.put("message", "Brand save error!");
+        }
+        return resp;
+    }
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    Map delete(Brand brand) {
+        Map resp = new HashMap();
+        try {
+            brandRepository.delete(brand);
+            resp.put("message", "Brand remove success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            resp.put("message", "Brand remove error!");
         }
         return resp;
     }

@@ -62,8 +62,9 @@ var sui = {
                 success: function(resp) {
                     resp = resp.jq;
                     if(resp.length) {
-                        container.html(resp.html());
-                        container.updateUi();
+                        var tableBody = container.find(".tabular-body");
+                        tableBody.html(resp.html());
+                        tableBody.updateUi();
                         container.find(".tab-search").prev("input.search-text").val(reqData.searchText);
                         config.afterLoad.apply(this, arguments);
                     }
@@ -72,7 +73,7 @@ var sui = {
         };
         return $.extend(config, {
             reload: function() {
-                container.reload();
+                container.reload({reload: true});
             }
         });
     },
@@ -105,7 +106,7 @@ var sui = {
         if(typeof url != "string") {
             content = url;
         }
-        var panel = $('<div class="sui-create-edit-panel '+config.class+'"><span class="close fa fa-close"></span><div class="panel-body"></div></div>');
+        var panel = $('<div class="card sui-create-edit-panel '+config.class+'"><span class="close fa fa-close"></span><div class="panel-body"></div></div>');
         var body = panel.find(".panel-body");
         if(content && content.length) {
             panelLoaded(content);
