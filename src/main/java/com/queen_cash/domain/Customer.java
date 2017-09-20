@@ -1,6 +1,6 @@
 package com.queen_cash.domain;
 
-import com.queen_cash.domain.model.DomainBase;
+import com.queen_cash.model.DomainBase;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

@@ -3,6 +3,7 @@ package com.queen_cash.controllers.admin;
 import com.queen_cash.domain.commerce.Brand;
 import com.queen_cash.repository.BrandRepository;
 import com.queen_cash.util.AppUtil;
+import com.queen_cash.util.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,12 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
 @RequestMapping("brandAdmin")
-public class BrandAdmin {
+public class BrandAdminController {
 
     @Autowired
     BrandRepository brandRepository;
@@ -35,8 +37,8 @@ public class BrandAdmin {
 
     @RequestMapping("/save")
     @ResponseBody
-    Map save(@RequestParam Map<String, String> params, Long id) {
-        Map resp = new HashMap();
+    Map save(Long id, @RequestParam Map<String, String> params) {
+        Map resp = WebUtil.responseMap("Brand save success");
         try {
             Brand brand = id != null ? brandRepository.findOne(id) : new Brand();
             if(brand.getId() == null) {
@@ -45,9 +47,9 @@ public class BrandAdmin {
             brand.setName(params.get("name"));
             brand.setDescription(params.get("description"));
             brandRepository.save(brand);
-            resp.put("message", "Brand save success");
         } catch (Exception e) {
             e.printStackTrace();
+            resp.put("status", "error");
             resp.put("message", "Brand save error!");
         }
         return resp;
@@ -56,12 +58,12 @@ public class BrandAdmin {
     @RequestMapping("/delete")
     @ResponseBody
     Map delete(Brand brand) {
-        Map resp = new HashMap();
+        Map resp = WebUtil.responseMap("Brand remove success");
         try {
             brandRepository.delete(brand);
-            resp.put("message", "Brand remove success");
         } catch (Exception e) {
             e.printStackTrace();
+            resp.put("status", "error");
             resp.put("message", "Brand remove error!");
         }
         return resp;

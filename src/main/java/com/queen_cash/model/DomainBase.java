@@ -1,4 +1,4 @@
-package com.queen_cash.domain.model;
+package com.queen_cash.model;
 
 import com.queen_cash.domain.admin.Administrator;
 import com.queen_cash.util.AppUtil;
