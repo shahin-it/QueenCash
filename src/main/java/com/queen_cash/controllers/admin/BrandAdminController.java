@@ -2,6 +2,7 @@ package com.queen_cash.controllers.admin;
 
 import com.queen_cash.domain.commerce.Brand;
 import com.queen_cash.repository.BrandRepository;
+import com.queen_cash.service.BrandService;
 import com.queen_cash.util.AppUtil;
 import com.queen_cash.util.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -23,8 +22,14 @@ public class BrandAdminController {
     BrandRepository brandRepository;
 
     @RequestMapping("")
-    String brandList(Model model, boolean reload) {
-        model.addAttribute("brands", brandRepository.findAll());
+    String brandList(Model model, boolean reload, @RequestParam Map<String, Object> params) {
+        if(params.get("offset") == null) {
+            params.put("offset", "0");
+        }
+//        if(params.get("max") == null) {
+            params.put("max", "2");
+//        }
+        model.addAttribute("brands", brandRepository.findAll(params));
         return reload ? "admin/brand/brandTable" : "admin/brand/appView";
     }
 

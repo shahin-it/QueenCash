@@ -1,13 +1,8 @@
 package com.queen_cash.util;
 
-import com.queen_cash.configuration.AppConfig;
 import com.queen_cash.domain.admin.Administrator;
 import com.queen_cash.repository.AdminRepository;
-import com.queen_cash.service.AdminService;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

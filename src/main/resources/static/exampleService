@@ -1,0 +1,100 @@
+package com.getprice.services;
+
+import com.getprice.domians.Brand;
+import com.getprice.utils.TypeConvertingMap;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+@Service
+public class BrandService {
+    @PersistenceContext
+    EntityManager entityManager;
+
+    public List<Brand> getBrands(Map params) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Brand> criteria = cb.createQuery(Brand.class);
+        Root<Brand> root = criteria.from(Brand.class);
+        String searchText;
+        if((searchText = (String) params.get("searchText")) != null) {
+            criteria.where(cb.or(
+                    cb.like(root.get("name"), "%" + searchText + "%"),
+                    cb.like(root.get("label"), "%" + searchText + "%")
+            ));
+        }
+        TypedQuery<Brand> query = entityManager.createQuery(criteria);
+        query.setFirstResult((Integer) params.get("offset"));
+        query.setMaxResults((Integer) params.get("max"));
+        return query.getResultList();
+    }
+
+    public long getBrandCount(Map params) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> criteria = cb.createQuery(Long.class);
+        Root<Brand> root = criteria.from(Brand.class);
+        String searchText;
+        if((searchText = (String) params.get("searchText")) != null) {
+            criteria.where(cb.or(
+                    cb.like(root.get("name"), "%" + searchText + "%"),
+                    cb.like(root.get("label"), "%" + searchText + "%")
+            ));
+        }
+        criteria.select(cb.count(root));
+        return entityManager.createQuery(criteria).getSingleResult();
+    }
+
+    public Brand getBrand(Long id) {
+        return entityManager.find(Brand.class, id);
+    }
+
+    @Transactional
+    public Boolean save(TypeConvertingMap params) {
+        Long id = params.getLong("id");
+        Brand brand = id != null ? getBrand(id) : new Brand();
+        brand.setName((String) params.get("name"));
+        brand.setUrl((String) params.get("url"));
+        entityManager.persist(brand);
+        return true;
+    }
+
+    @Transactional
+    public Boolean delete(Long id) {
+        Brand group =  getBrand(id);
+        entityManager.remove(group);
+        return true;
+    }
+
+    public  List<HashMap<String, Object>> getItemsForAutoComplete(TypeConvertingMap params) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Object[]> criteria = cb.createQuery(Object[].class);
+        Root<Brand> root = criteria.from(Brand.class);
+        String searchText;
+        if((searchText = (String) params.get("searchText")) != null) {
+            cb.like(root.get("name"), "%" + searchText + "%");
+        }
+        criteria.multiselect(root.get("id"), root.get("name"));
+        TypedQuery<Object[]> query = entityManager.createQuery(criteria);
+        query.setFirstResult(params.getInt("offset"));
+        query.setMaxResults(params.getInt("max"));
+        List<Object[]> results = query.getResultList();
+        List<HashMap<String, Object>> responseResult = new ArrayList<HashMap<String, Object>>();
+        for(Object[] result : results) {
+            HashMap<String, Object> map  = new HashMap<String, Object>();
+            map.put("value", result[0]);
+            map.put("label", result[1]);
+            responseResult.add(map);
+        }
+        return responseResult;
+    }
+}
