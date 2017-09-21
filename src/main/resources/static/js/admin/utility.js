@@ -24,10 +24,11 @@ var sui = {
         return $.ajax(settings);
     },
     singleTab: function(container, data, config) {
+        var _self = this;
         if(!container.is(".sui-tabular-content")) {
             return;
         }
-        data = $.extend({
+        data = container.data = $.extend({
             offset: 0,
             max: 10,
             searchText: ""
@@ -50,11 +51,11 @@ var sui = {
             if(before == false) {
                 return;
             }
-            var reqData = $.extend(data, reloadData);
+            var reqData = $.extend({reload: true}, data, reloadData);
             container.loader();
             sui.ajax({
                 url: config.url,
-                data: data,
+                data: reqData,
                 dataType: "html",
                 complete: function(resp) {
                     container.loader(false);
@@ -62,20 +63,66 @@ var sui = {
                 success: function(resp) {
                     resp = resp.jq;
                     if(resp.length) {
+                        $.extend(container.data, reloadData);
                         var tableBody = container.find(".tabular-body");
                         tableBody.html(resp.html());
                         tableBody.updateUi();
                         container.find(".tab-search").prev("input.search-text").val(reqData.searchText);
+                        _self.pagination(container);
                         config.afterLoad.apply(this, arguments);
                     }
                 }
             });
         };
+        _self.pagination(container);
         return $.extend(config, {
             reload: function() {
-                container.reload({reload: true});
+                container.reload();
             }
         });
+    },
+    pagination: function (container) {
+        var pagination = container.find(".pagination");
+        var data = $.extend({offset: 0, max: 10, count: parseInt(pagination.data("count"))}, container.data);
+        var items = pagination.find(".item");
+
+        if(data.count == 0) {
+            items.addClass("disabled");
+            return;
+        }
+        data.offset = data.offset < 0 ? 0 : data.offset;
+        var _max = (data.offset + 1) * data.max;
+
+        items.removeClass("disabled");
+        if(data.offset == 0) {
+            items.filter(".prev").addClass("disabled");
+        }
+        if(_max > data.count || _max == data.count) {
+            items.filter(".next").addClass("disabled");
+        }
+
+        items.click(function () {
+            var $this = $(this);
+            var _data = $.extend({}, data);
+            if($this.is(".disabled")) {
+                return;
+            }
+            if($this.is(".prev")) {
+                _data.offset = _data.offset - 1;
+            } else if($this.is(".next")) {
+                _data.offset = _data.offset + 1;
+            } else {
+                return;
+            }
+            container.reload(_data);
+        })
+        return {
+            data: data,
+            goto: function (offset) {
+                data.offset = offset;
+                container.reload(data);
+            }
+        };
     },
     highlight: function (item, time, blink) {
         item.addClass("highlight-row" + (blink ? " blink" : ""));

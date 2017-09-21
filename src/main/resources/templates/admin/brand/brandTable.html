@@ -1,6 +1,7 @@
 <div class="row tabular-body" xmlns:th="http://www.thymeleaf.org">
     <div class="col-md-12">
         <div class="card">
+            <span class="label label-info" th:text="|${#httpServletRequest.getParameter('max') ?: 10} of ${count}|"></span>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -29,14 +30,12 @@
                     <div class="col-sm-9 left">
                     </div>
                     <div class="col-sm-3 right">
-                        <ul class="pagination pagination-sm">
-                            <li class="disabled"><a href="#">«</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">»</a></li>
+                        <ul class="pagination pagination-sm" th:attr="data-count=${count ?: 0}">
+                            <li class="item prev"><span>«</span></li>
+                            <li class="item active"><span>1</span></li>
+                            <li class="item"><span>2</span></li>
+                            <li class="item"><span>3</span></li>
+                            <li class="item next"><span>»</span></li>
                         </ul>
                     </div>
                 </div>

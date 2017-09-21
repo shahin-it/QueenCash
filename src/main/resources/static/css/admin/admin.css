@@ -34,3 +34,6 @@
     font-size: 24px;
     margin-top: 15px;
 }
+.pagination-sm {
+    cursor: hand;
+}

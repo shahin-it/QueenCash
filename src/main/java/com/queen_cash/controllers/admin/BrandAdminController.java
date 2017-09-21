@@ -21,13 +21,11 @@ public class BrandAdminController {
     BrandRepository brandRepository;
 
     @RequestMapping("")
-    String brandList(Model model, boolean reload, @RequestParam Map<String, Object> params) {
-        if(params.get("offset") == null) {
-            params.put("offset", "0");
+    String brandList(Model model, boolean reload, @RequestParam Map params) {
+        model.addAttribute("count", brandRepository.count());
+        if(params.get("max") == null) {
+            params.put("max", "10");
         }
-//        if(params.get("max") == null) {
-            params.put("max", "2");
-//        }
         model.addAttribute("brands", brandRepository.findAll(params));
         return reload ? "admin/brand/brandTable" : "admin/brand/appView";
     }

@@ -27,11 +27,13 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
             Long adminId = AppUtil.loggedAdmin();
             if(adminId == null) {
                 response.sendRedirect(AppUtil.baseUrl() + "auth/adminLogin");
+                return false;
             } else {
                 Administrator admin = adminRepository.findOne(adminId);
                 if(admin.getId() != adminId) {
                     AppUtil.removeSessionAttr("admin");
                     response.sendRedirect(AppUtil.baseUrl() + "auth/adminLogin");
+                    return false;
                 }
             }
         } else if(canonicalName.startsWith(NameConstant.CUSTOMER_PACKAGE)) {
