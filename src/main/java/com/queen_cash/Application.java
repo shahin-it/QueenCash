@@ -1,7 +1,5 @@
 package com.queen_cash;
 
-import com.queen_cash.repo.CommonCustomRepository;
-import com.queen_cash.repo.CommonCustomRepositoryImpl;
 import com.queen_cash.repository.CustomRepositoryImpl;
 import com.queen_cash.util.AppUtil;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

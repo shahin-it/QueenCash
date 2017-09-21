@@ -2,7 +2,6 @@ package com.queen_cash.controllers.admin;
 
 import com.queen_cash.domain.commerce.Brand;
 import com.queen_cash.repository.BrandRepository;
-import com.queen_cash.service.BrandService;
 import com.queen_cash.util.AppUtil;
 import com.queen_cash.util.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
