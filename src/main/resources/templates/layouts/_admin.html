@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" th:with="baseUrl=${@app.baseUrl()}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" th:with="baseUrl=${@app.baseUrl()}, maxResult=${@app.maxResult()}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -11,6 +11,7 @@
     <script type="text/javascript">
         var app = {
             base: "<th:block th:text="${baseUrl}"/>",
+            maxResult: "<th:block th:text="${maxResult}"/>",
             tab: {}
         }
     </script>

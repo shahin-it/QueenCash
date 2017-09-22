@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 @Component
 public class App {
@@ -16,6 +15,9 @@ public class App {
     ApplicationContext context;
     public String baseUrl() {
         return AppUtil.baseUrl();
+    }
+    public int maxResult() {
+        return AppUtil.maxResult;
     }
 
     public String[] staticResource(String path) {

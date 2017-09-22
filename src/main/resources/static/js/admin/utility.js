@@ -30,7 +30,7 @@ var sui = {
         }
         data = container.data = $.extend({
             offset: 0,
-            max: 10,
+            max: app.maxResult,
             searchText: ""
         }, data);
 
@@ -87,6 +87,22 @@ var sui = {
         });
     },
     pagination: function (container) {
+        var pagination = container.find(".pagination");
+        var data = $.extend({offset: 0, max: app.maxResult, count: parseInt(pagination.data("count"))}, container.data);
+        if(!data.count) {return}
+        pagination.twbsPagination({
+            startPage: data.offset + 1,
+            visiblePages: 3,
+            initiateStartPageClick: false,
+            totalPages: Math.ceil(data.count/data.max),
+            prev: "Prev",
+            onPageClick: function (evt, offset) {
+                data.offset = offset - 1;
+                container.reload($.extend({}, data));
+            }
+        });
+    },
+    _pagination: function (container) {
         var pagination = container.find("pagination");
         var dom = $('<ul class="pagination pagination-sm" data-count="'+pagination.data('count')+'">' +
             '           <li class="item prev"><span>«</span></li>' +
