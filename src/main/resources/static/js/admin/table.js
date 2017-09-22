@@ -31,7 +31,7 @@ $(function() {
             });
             _self.body.on("click", ".action-navigator .remove", function() {
                 var data = this.jq.parent().data() || {};
-                sui.confirmDelete(tab.removeUrl, "Are you sure?", data, function() {
+                sui.confirmDelete(tab.removeUrl, "Are you confirm to remove?", data, function() {
                     _self.reload();
                 });
             });
