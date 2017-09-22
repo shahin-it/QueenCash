@@ -22,9 +22,10 @@ public class BrandAdminController {
 
     @RequestMapping("")
     String brandList(Model model, boolean reload, @RequestParam Map params) {
+        model.addAttribute("component", "brand");
         model.addAttribute("count", brandRepository.count(params));
         model.addAttribute("brands", brandRepository.findAllByAny(params));
-        return reload ? "admin/brand/brandTable" : "admin/brand/appView";
+        return reload ? "admin/brand/list" : "admin/tableView";
     }
 
     @RequestMapping("/edit")
@@ -37,7 +38,7 @@ public class BrandAdminController {
     @RequestMapping("/save")
     @ResponseBody
     Map save(Long id, @RequestParam Map<String, String> params) {
-        Map resp = WebUtil.responseMap("Brand save success");
+        Map resp = WebUtil.responseMap("Brand successfully saved");
         try {
             Brand brand = id != null ? brandRepository.findOne(id) : new Brand();
             if(brand.getId() == null) {
@@ -57,7 +58,7 @@ public class BrandAdminController {
     @RequestMapping("/delete")
     @ResponseBody
     Map delete(Brand brand) {
-        Map resp = WebUtil.responseMap("Brand remove success");
+        Map resp = WebUtil.responseMap("Brand successfully removed");
         try {
             brandRepository.delete(brand);
         } catch (Exception e) {

@@ -1,0 +1,19 @@
+<body xmlns:th="http://www.thymeleaf.org"
+     th:with="${component}=active" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/_admin"
+     layout:fragment="content">
+<div class="sui-tabular-content" th:id="|${component}-tab|">
+    <div class="page-title">
+        <div class="left">
+            <h1  th:inline="text"><i class="fa fa-archive"></i>[[${#strings.capitalize(component)}]]</h1>
+            <p th:text="|Manage ${component} related info|"></p>
+        </div>
+        <div class="right">
+            <div class="search-form">
+                <input class="form-control" placeholder="Search anything"/><button class="btn btn-primary fa fa-search"></button>
+            </div>
+            <button class="btn btn-primary icon-btn add-new-button" th:inline="text"><i class="fa fa-plus"></i>Add [[${#strings.capitalize(component)}]]</button>
+        </div>
+    </div>
+    <th:block th:replace="|admin/${component}/list|"></th:block>
+</div>
+</body>

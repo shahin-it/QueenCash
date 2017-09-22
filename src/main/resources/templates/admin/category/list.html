@@ -1,0 +1,39 @@
+<div class="row tabular-body" xmlns:th="http://www.thymeleaf.org">
+    <div class="col-md-12">
+        <div class="card">
+            <span class="label label-info" th:text="|${#lists.size(categories)} of ${count}|"></span>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#Id</th>
+                        <th width="30%">Name</th>
+                        <th width="30%">Description</th>
+                        <th width="20%">Created By</th>
+                        <th width="15%">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="category : ${categories}">
+                        <td th:text="${category.id}"></td>
+                        <td th:text="${#strings.abbreviate(category.name, 30)}"></td>
+                        <td th:text="${#strings.abbreviate(category.description, 50)}"></td>
+                        <td th:text="${#strings.abbreviate(category.createdBy?.name, 30)}"></td>
+                        <td class="action-navigator btn-group" th:attr="data-id=${category.id}">
+                            <span class="btn btn-info edit"><i class="fa fa-lg fa-edit"></i></span>
+                            <span class="btn btn-warning remove"><i class="fa fa-lg fa-trash"></i></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="fc-row table-footer">
+                    <div class="col-sm-8 left">
+                    </div>
+                    <div class="col-sm-4 right">
+                        <ul class="pagination pagination-sm" th:attr="data-count=${count ?: 0}"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
