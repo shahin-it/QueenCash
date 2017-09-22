@@ -37,3 +37,19 @@
 .pagination-sm {
     cursor: hand;
 }
+.sui-tabular-content .page-title .right {
+    display: flex;
+}
+@media screen and (max-width: 430px) {
+    .sui-tabular-content .page-title .right {
+        display: block;
+    }
+}
+.search-form {
+    display: flex;
+    padding-right: 5px;
+}
+.search-form input {
+    max-width: 150px;
+    margin-right: -5px;
+}

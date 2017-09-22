@@ -10,6 +10,8 @@ import java.util.Map;
 
 @NoRepositoryBean
 public interface CommonRepository<T> extends JpaRepository<T, Serializable> {
-    Object findByCreatedBy(Administrator administrator);
-    public List<T> findAll(Map<?, ?> params);
+    Class<T> findByCreatedBy(Administrator administrator);
+    List<T> findAll(Map<?, ?> params);
+    long count(Map<?, ?> params);
+    List<T> findAllByAny(Map<?, ?> params);
 }

@@ -59,7 +59,7 @@ $.extend($.prototype, {
         this.find(".sui-file-chooser").on("change", "input[type=file]:last", function() {
             if(this.value) {
                 if((this.files[0].size/1024) > (+this.jq.attr("max-size"))) {
-                    sui.alert("Max size 2 MB");
+                    sui.notify("Max size 2 MB");
                     this.jq.replaceWith(this.jq.val('').clone(true));
                     return false;
                 }

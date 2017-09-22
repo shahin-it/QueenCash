@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public class AppUtil {
+    public static Integer maxResult = 10;
     public static ServletContext servletContext = null;
     public static ApplicationContext applicationContext;
 

@@ -22,11 +22,8 @@ public class BrandAdminController {
 
     @RequestMapping("")
     String brandList(Model model, boolean reload, @RequestParam Map params) {
-        model.addAttribute("count", brandRepository.count());
-        if(params.get("max") == null) {
-            params.put("max", "10");
-        }
-        model.addAttribute("brands", brandRepository.findAll(params));
+        model.addAttribute("count", brandRepository.count(params));
+        model.addAttribute("brands", brandRepository.findAllByAny(params));
         return reload ? "admin/brand/brandTable" : "admin/brand/appView";
     }
 

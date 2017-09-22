@@ -1,24 +1,24 @@
 <div class="row tabular-body" xmlns:th="http://www.thymeleaf.org">
     <div class="col-md-12">
         <div class="card">
-            <span class="label label-info" th:text="|${#httpServletRequest.getParameter('max') ?: 10} of ${count}|"></span>
+            <span class="label label-info" th:text="|${#lists.size(brands)} of ${count}|"></span>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                     <tr>
                         <th>#Id</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Created By</th>
-                        <th>Actions</th>
+                        <th width="30%">Name</th>
+                        <th width="30%">Description</th>
+                        <th width="20%">Created By</th>
+                        <th width="15%">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="brand : ${brands}">
                         <td th:text="${brand.id}"></td>
-                        <td th:text="${brand.name}"></td>
-                        <td th:text="${brand.description}"></td>
-                        <td th:text="${brand.createdBy?.name}"></td>
+                        <td th:text="${#strings.abbreviate(brand.name, 30)}"></td>
+                        <td th:text="${#strings.abbreviate(brand.description, 50)}"></td>
+                        <td th:text="${#strings.abbreviate(brand.createdBy?.name, 30)}"></td>
                         <td class="action-navigator btn-group" th:attr="data-id=${brand.id}">
                             <span class="btn btn-info edit"><i class="fa fa-lg fa-edit"></i></span>
                             <span class="btn btn-warning remove"><i class="fa fa-lg fa-trash"></i></span>
@@ -30,13 +30,7 @@
                     <div class="col-sm-9 left">
                     </div>
                     <div class="col-sm-3 right">
-                        <ul class="pagination pagination-sm" th:attr="data-count=${count ?: 0}">
-                            <li class="item prev"><span>«</span></li>
-                            <li class="item active"><span>1</span></li>
-                            <li class="item"><span>2</span></li>
-                            <li class="item"><span>3</span></li>
-                            <li class="item next"><span>»</span></li>
-                        </ul>
+                        <pagination th:attr="data-count=${count ?: 0}"></pagination>
                     </div>
                 </div>
             </div>

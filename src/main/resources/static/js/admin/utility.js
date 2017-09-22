@@ -42,8 +42,13 @@ var sui = {
         container.on("click", ".tab-reload", function() {
             container.reload();
         });
-        container.on("click", ".tab-search", function() {
-            container.reload({searchText: this.jq.prev("input.search-text").val()});
+        container.on("click", ".search-form button", function() {
+            container.reload({searchText: this.jq.prev("input").val()});
+        });
+        container.on("keypress", ".search-form input", function (e) {
+            if (e.which == 13) {
+                container.reload({searchText: this.jq.val()});
+            }
         });
 
         container.reload = function(reloadData) {
@@ -67,7 +72,7 @@ var sui = {
                         var tableBody = container.find(".tabular-body");
                         tableBody.html(resp.html());
                         tableBody.updateUi();
-                        container.find(".tab-search").prev("input.search-text").val(reqData.searchText);
+                        container.find(".search-form").prev("input").val(reqData.searchText);
                         _self.pagination(container);
                         config.afterLoad.apply(this, arguments);
                     }
@@ -82,17 +87,26 @@ var sui = {
         });
     },
     pagination: function (container) {
-        var pagination = container.find(".pagination");
+        var pagination = container.find("pagination");
+        var dom = $('<ul class="pagination pagination-sm" data-count="'+pagination.data('count')+'">' +
+            '           <li class="item prev"><span>«</span></li>' +
+            '           <li class="item next"><span>»</span></li>' +
+            '       </ul>');
+        pagination.replaceWith(dom);
+        pagination = dom;
         var data = $.extend({offset: 0, max: 10, count: parseInt(pagination.data("count"))}, container.data);
-        var items = pagination.find(".item");
+        data.offset = data.offset < 0 ? 0 : data.offset;
+        var _max = (data.offset + 1) * data.max;
 
+        for (var i = 1; i <= Math.ceil(data.count/data.max); i++) {
+            pagination.find(".item.next").before('<li class="item '+(data.offset == (i-1) ? 'active' : '')+'" data-offset="'+(i-1)+'"><span>'+i+'</span></li>');
+        }
+
+        var items = pagination.find(".item");
         if(data.count == 0) {
             items.addClass("disabled");
             return;
         }
-        data.offset = data.offset < 0 ? 0 : data.offset;
-        var _max = (data.offset + 1) * data.max;
-
         items.removeClass("disabled");
         if(data.offset == 0) {
             items.filter(".prev").addClass("disabled");
@@ -112,7 +126,7 @@ var sui = {
             } else if($this.is(".next")) {
                 _data.offset = _data.offset + 1;
             } else {
-                return;
+                _data.offset = parseInt($this.data("offset"))
             }
             container.reload(_data);
         })
@@ -136,8 +150,16 @@ var sui = {
             item.removeClass("error-highlight");
         }, time ? time : 1000);
     },
-    alert: function($message, $type) {
-        alert($message);
+    notify: function(message, type) {
+        type = type || "info"
+        type = type == "error" ? "danger" : type;
+        $.notify({
+            title: type.toUpperCase() + ": ",
+            message: message,
+            icon: 'fa fa-check'
+        },{
+            type: type
+        });
     },
     renderCreateEdit: function (url, data, config) {
         var content
@@ -190,7 +212,7 @@ var sui = {
                 success: function(resp, type) {
                     form.loader(false);
                     if(resp && resp.message) {
-                        sui.alert(resp.message);
+                        sui.notify(resp.message, resp.status);
                     }
                     if(config.success) {
                         config.success.apply(this, arguments);
@@ -270,7 +292,7 @@ var sui = {
                                 config.response.apply(this);
                             }
                             if(resp && resp.message) {
-                                sui.alert(resp.message);
+                                sui.notify(resp.message, resp.status);
                             }
                             if(config.success) {
                                 config.success.apply(this, arguments);
@@ -298,12 +320,25 @@ var sui = {
         return popup;
     },
     confirm: function(message, yes, no) {
-        var confirm = window.confirm(message);
-        if(confirm) {
-            yes && yes();
-        } else {
-            no && no();
-        }
+        swal({
+            title: message,
+            text: "You will not be able to recover this!",
+            type: "warning",
+            showCancelButton: true,
+            showCloseButton: true,
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        }, function(isConfirm) {
+            if (isConfirm) {
+                yes && yes();
+                // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+            } else {
+                no && no();
+                // swal("Cancelled", "Your imaginary file is safe :)", "error");
+            }
+        });
     },
     confirmDelete: function(url, title, data, success) {
         this.confirm(title, function() {
@@ -317,7 +352,7 @@ var sui = {
                 },
                 success: function(resp) {
                     if(resp && resp.message) {
-                        sui.alert(resp.message);
+                        sui.notify(resp.message, resp.status);
                     }
                     if(success) {
                         success.apply(this, arguments);
@@ -325,18 +360,6 @@ var sui = {
                 }
             })
         });
-    },
-    notify: function(message, type) {
-        var icon = {error: "fa-times", success: "fa-check", alert: "fa-exclamation-triangle"}
-        var dom = $('<div class="notification-popup shake-out '+type+'"><div class="title-bar"><i class="fa fa-times-circle-o close-popup"></i></div>' +
-            '<div class="body"><i class="fa icon '+icon[type]+'"></i> <span class="message"><p>'+message+'</p></span></div></div>');
-        $("body").append(dom);
-        dom.find(".close-popup").on("click", function() {
-            dom.remove();
-        })
-        setTimeout(function() {
-            dom.remove();
-        }, 10000);
     },
     accordion: function(panel) {
         if(!panel.is(".sui-accordion-panel")) {
