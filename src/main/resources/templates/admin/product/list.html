@@ -1,7 +1,7 @@
 <div class="row tabular-body" xmlns:th="http://www.thymeleaf.org">
     <div class="col-md-12">
         <div class="card">
-            <span class="label label-info" th:text="|${#lists.size(categories)} of ${count}|"></span>
+            <span class="label label-info" th:text="|${#lists.size(products)} of ${count}|"></span>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -14,12 +14,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="category : ${categories}">
-                        <td th:text="${category.id}"></td>
-                        <td th:text="${#strings.abbreviate(category.name, 30)}"></td>
-                        <td th:text="${#strings.abbreviate(category.description, 50)}"></td>
-                        <td th:text="${#strings.abbreviate(category.createdBy?.name, 30)}"></td>
-                        <td class="action-navigator btn-group" th:attr="data-id=${category.id}">
+                    <tr th:each="product : ${products}">
+                        <td th:text="${product.id}"></td>
+                        <td th:text="${#strings.abbreviate(product.name, 30)}"></td>
+                        <td th:text="${#strings.abbreviate(product.description, 50)}"></td>
+                        <td th:text="${#strings.abbreviate(product.createdBy?.name, 30)}"></td>
+                        <td class="action-navigator btn-group" th:attr="data-id=${product.id}">`
                             <span class="btn btn-info edit"><i class="fa fa-lg fa-edit"></i></span>
                             <span class="btn btn-warning remove"><i class="fa fa-lg fa-trash"></i></span>
                         </td>

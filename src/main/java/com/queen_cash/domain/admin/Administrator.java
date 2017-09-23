@@ -1,8 +1,10 @@
 package com.queen_cash.domain.admin;
 
 import com.queen_cash.model.DomainBase;
+import com.queen_cash.repository.CommonRepository;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -44,6 +46,17 @@ public class Administrator extends DomainBase {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public static void initialize(CommonRepository adminRepository) {
+        if(adminRepository.count() == 0) {
+            Administrator administrator = new Administrator();
+            administrator.setName("Shahin Khaled");
+            administrator.setEmail("admin@queencash.com");
+            administrator.setPassword("admin");
+
+            adminRepository.save(administrator);
+        }
     }
 
 }

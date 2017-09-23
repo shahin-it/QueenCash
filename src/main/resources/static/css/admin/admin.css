@@ -2,10 +2,8 @@
     background-color: #F0F3F4;
 }
 .sui-create-edit-panel .close {
-    font-size: 20px;
-    padding: 0 4px 4px 4px;
-    background: red;
-    color: white;
+    font-size: 25px;
+    color: red;
 }
 .overlay {
     position: absolute;

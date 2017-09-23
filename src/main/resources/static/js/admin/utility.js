@@ -191,7 +191,7 @@ var sui = {
         if(typeof url != "string") {
             content = url;
         }
-        var panel = $('<div class="card sui-create-edit-panel '+config.class+'"><span class="close fa fa-close"></span><div class="panel-body"></div></div>');
+        var panel = $('<div class="card sui-create-edit-panel '+config.class+'"><span class="close fa fa-window-close"></span><div class="panel-body"></div></div>');
         var body = panel.find(".panel-body");
         if(content && content.length) {
             panelLoaded(content);
