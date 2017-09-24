@@ -45,6 +45,7 @@ public class CustomRepositoryImpl<T> extends SimpleJpaRepository<T, Serializable
         int offset = params.get("offset") != null ? Integer.parseInt((String) params.get("offset")) : 0;
         int max = params.get("max") != null ? Integer.parseInt((String) params.get("max")) : AppUtil.maxResult;
         int start = max * offset;
+        String orderBy = params.get("orderBy") != null ? (String) params.get("orderBy") : "asc";
         List items;
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
@@ -57,6 +58,13 @@ public class CustomRepositoryImpl<T> extends SimpleJpaRepository<T, Serializable
                 cb.like(root.get("description"), "%" + searchText + "%")
             ));
         }
+
+        if(orderBy == "asc") {
+            criteria.orderBy(cb.asc(root.get("id")));
+        } else {
+            criteria.orderBy(cb.desc(root.get("id")));
+        }
+
         TypedQuery<T> query = entityManager.createQuery(criteria);
         query.setFirstResult(start);
         query.setMaxResults(max);

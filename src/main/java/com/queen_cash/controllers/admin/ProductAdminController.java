@@ -22,6 +22,7 @@ public class ProductAdminController {
 
     @RequestMapping("")
     String productList(Model model, boolean reload, @RequestParam Map params) {
+        params.put("orderBy", "desc");
         model.addAttribute("component", "product");
         model.addAttribute("count", productRepository.count(params));
         model.addAttribute("products", productRepository.findAllByAny(params));
