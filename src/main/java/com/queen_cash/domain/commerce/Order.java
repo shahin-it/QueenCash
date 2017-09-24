@@ -11,8 +11,8 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Entity
-public class Orders extends DomainBase {
+@Entity(name = "orders")
+public class Order extends DomainBase {
 
     @OneToMany
     private Collection<OrderItem> orderItems = new ArrayList<>();
