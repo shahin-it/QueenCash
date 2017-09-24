@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
-public class Order extends DomainBase {
+public class Orders extends DomainBase {
 
     @OneToMany
     private Collection<OrderItem> orderItems = new ArrayList<>();
