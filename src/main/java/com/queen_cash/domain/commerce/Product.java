@@ -1,14 +1,19 @@
 package com.queen_cash.domain.commerce;
 
 import com.queen_cash.model.DomainBase;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Product extends DomainBase {
     @NotNull
+    @NotBlank
     private String name;
+
+    @Size(max = 10000)
     private String description = "";
 
     private Boolean isOnSale = false;

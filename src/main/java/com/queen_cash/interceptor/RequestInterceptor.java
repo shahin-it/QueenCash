@@ -3,7 +3,7 @@ package com.queen_cash.interceptor;
 import com.queen_cash.domain.admin.Administrator;
 import com.queen_cash.repository.AdminRepository;
 import com.queen_cash.util.AppUtil;
-import com.queen_cash.util.NameConstant;
+import com.queen_cash.constants.NameConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;

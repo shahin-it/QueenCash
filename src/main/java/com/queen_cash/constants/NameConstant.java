@@ -1,4 +1,4 @@
-package com.queen_cash.util;
+package com.queen_cash.constants;
 
 public class NameConstant {
     public static final String ADMIN_PACKAGE = "com.queen_cash.controllers.admin";

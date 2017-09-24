@@ -1,6 +1,7 @@
 package com.queen_cash.domain;
 
 import com.queen_cash.model.DomainBase;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Size;
 @Entity
 public class Customer extends DomainBase {
 
+    @NotBlank
     @Size(min = 3, max = 200)
     private String firstName;
 
@@ -16,10 +18,14 @@ public class Customer extends DomainBase {
     @Size(min = 3, max = 200)
     private String lastName;
 
+    @NotBlank
+    @NotNull
     @Size(min = 3, max = 200)
     @Column(unique = true)
     private String email;
 
+    @NotNull
+    @NotBlank
     @Size(min = 3, max = 100)
     private String password;
 

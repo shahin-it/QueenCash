@@ -1,5 +1,6 @@
 package com.queen_cash.configuration;
 
+import com.queen_cash.domain.admin.Administrator;
 import com.queen_cash.util.AppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -29,6 +30,10 @@ public class App {
             e.printStackTrace();
         }
         return file != null ? file.list() : new String[0];
+    }
+
+    public Administrator loggedAdmin() {
+        return AppUtil.loggedAdministrator();
     }
 
 

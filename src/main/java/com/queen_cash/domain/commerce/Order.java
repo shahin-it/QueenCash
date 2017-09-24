@@ -1,8 +1,8 @@
 package com.queen_cash.domain.commerce;
 
 import com.queen_cash.domain.Customer;
-import com.queen_cash.domain.admin.Administrator;
 import com.queen_cash.model.DomainBase;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -12,20 +12,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
-public class Sells extends DomainBase {
+public class Order extends DomainBase {
 
     @OneToMany
-    private Collection<SellsItem> sellsItems = new ArrayList<>();
-    @NotNull
-    private Double salesTotal = 0.0;
+    private Collection<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne
-    private Administrator salesMan;
     @OneToOne
     private Customer customer;
 
     @NotNull
+    @NotBlank
     private String customerName;
     @NotNull
+    @NotBlank
     private String salesManName;
 }
