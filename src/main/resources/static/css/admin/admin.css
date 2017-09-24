@@ -38,6 +38,9 @@
 .sui-tabular-content .page-title .right {
     display: flex;
 }
+.sui-tabular-content .table-footer .right {
+    float: right;
+}
 @media screen and (max-width: 430px) {
     .sui-tabular-content .page-title .right {
         display: block;
@@ -58,4 +61,7 @@
     border: 1px solid;
     border-radius: 50%;
     background-color: #007d71;
+}
+.sidebar-collapse .user-panel .pull-left.image {
+    font-size: 22px;
 }

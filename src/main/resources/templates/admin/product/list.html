@@ -19,17 +19,17 @@
                         <td th:text="${#strings.abbreviate(product.name, 30)}"></td>
                         <td th:text="${#strings.abbreviate(product.description, 50)}"></td>
                         <td th:text="${#strings.abbreviate(product.createdBy?.name, 30)}"></td>
-                        <td class="action-navigator btn-group" th:attr="data-id=${product.id}">`
+                        <td class="action-navigator btn-group" th:attr="data-id=${product.id}">
                             <span class="btn btn-info edit"><i class="fa fa-lg fa-edit"></i></span>
                             <span class="btn btn-warning remove"><i class="fa fa-lg fa-trash"></i></span>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                <div class="fc-row table-footer">
-                    <div class="col-sm-8 left">
+                <div class="table-footer">
+                    <div class="left">
                     </div>
-                    <div class="col-sm-4 right">
+                    <div class="right">
                         <ul class="pagination pagination-sm" th:attr="data-count=${count ?: 0}"></ul>
                     </div>
                 </div>

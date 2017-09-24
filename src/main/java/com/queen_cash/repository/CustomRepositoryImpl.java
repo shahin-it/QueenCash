@@ -45,6 +45,7 @@ public class CustomRepositoryImpl<T> extends SimpleJpaRepository<T, Serializable
         int offset = params.get("offset") != null ? Integer.parseInt((String) params.get("offset")) : 0;
         int max = params.get("max") != null ? Integer.parseInt((String) params.get("max")) : AppUtil.maxResult;
         int start = max * offset;
+        List items;
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<T> criteria = cb.createQuery(getDomainClass());
@@ -59,7 +60,12 @@ public class CustomRepositoryImpl<T> extends SimpleJpaRepository<T, Serializable
         TypedQuery<T> query = entityManager.createQuery(criteria);
         query.setFirstResult(start);
         query.setMaxResults(max);
-        return query.getResultList();
+        items = query.getResultList();
+        if (items.size() == 0) {
+            query.setFirstResult(start-max);
+            items = query.getResultList();
+        }
+        return items;
     }
 
     public long count(Map<?, ?> params) {

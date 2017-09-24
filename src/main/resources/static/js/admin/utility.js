@@ -88,17 +88,19 @@ var sui = {
     },
     pagination: function (container) {
         var pagination = container.find(".pagination");
-        var data = $.extend({offset: 0, max: app.maxResult, count: parseInt(pagination.data("count"))}, container.data);
-        if(!data.count) {return}
+        var count = parseInt(pagination.data("count"));
+        var data = $.extend({offset: 0, max: app.maxResult}, container.data);
+        if(!count) {return}
+        if(data.max == count) { data.offset = 0 }
         pagination.twbsPagination({
             startPage: data.offset + 1,
             visiblePages: 3,
             initiateStartPageClick: false,
-            totalPages: Math.ceil(data.count/data.max),
+            totalPages: Math.ceil(count/data.max),
             prev: "Prev",
             onPageClick: function (evt, offset) {
                 data.offset = offset - 1;
-                container.reload($.extend({}, data));
+                container.reload(data);
             }
         });
     },
@@ -216,6 +218,11 @@ var sui = {
             body.append(content);
             content.updateUi();
             var form = panel.find("form:first");
+            var saveAndNew = false;
+            form.find(".save-and-new").click(function () {
+                saveAndNew = true;
+                form.submit();
+            });
             form.ajaxForm({
                 type: "POST",
                 dataType: "json",
@@ -233,7 +240,12 @@ var sui = {
                     if(config.success) {
                         config.success.apply(this, arguments);
                     }
-                    close();
+                    if(saveAndNew) {
+                        form[0].reset();
+                        saveAndNew = false;
+                    } else {
+                        close();
+                    }
                 },
                 error: function() {
                     form.loader(false);
