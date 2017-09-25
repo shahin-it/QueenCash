@@ -14716,7 +14716,7 @@ be a descendant of the grid when it is being dragged.
 
 .toggle-flip input[type="checkbox"] + .flip-indecator {
   position: relative;
-  width: 60px;
+  width: 80px;
   height: 30px;
   display: block;
   cursor: pointer;

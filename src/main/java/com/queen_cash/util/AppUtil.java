@@ -38,7 +38,7 @@ public class AppUtil {
         return session;
     }
 
-    static HttpServletRequest getRequest() {
+    public static HttpServletRequest getRequest() {
         try {
             RequestAttributes attributes = RequestContextHolder.currentRequestAttributes();
             return ((ServletRequestAttributes) attributes).getRequest();

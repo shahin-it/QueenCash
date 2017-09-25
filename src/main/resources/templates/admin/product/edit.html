@@ -4,15 +4,72 @@
         <fieldset>
             <legend th:text="${product.id != null ? 'Edit product' : 'Create product'}"></legend>
             <div class="form-group">
-                <label class="col-lg-2 control-label" for="inputText">Name</label>
+                <label class="col-lg-2 control-label">Name</label>
                 <div class="col-lg-10">
-                    <input name="name" required="" maxlength="250" minlength="2" class="form-control" id="inputText" type="text" placeholder="Name" th:value="${product.name}"/>
+                    <input name="name" required="" maxlength="250" minlength="2" class="form-control" type="text" placeholder="Name" th:value="${product.name}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Status</label>
+                <div class="col-lg-4 toggle-flip">
+                    <label>
+                        <input name="active" th:checked="${product.active}" type="checkbox"/><span class="flip-indecator" data-toggle-on="ACTIVE" data-toggle-off="INACTIVE"></span>
+                    </label>
+                </div>
+                <label class="col-lg-2 control-label">Stock Status</label>
+                <div class="col-lg-4 toggle-flip">
+                    <label>
+                        <input name="enableStock" th:checked="${product.enableStock}" type="checkbox"/><span class="flip-indecator" data-toggle-on="ENABLE" data-toggle-off="DISABLE"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Base Price</label>
+                <div class="col-lg-4">
+                    <input name="basePrice" required="" maxlength="9" minlength="1" class="form-control" type="text" placeholder="Price" th:value="${product.basePrice}"/>
+                </div>
+                <label class="col-lg-2 control-label">Cost Price</label>
+                <div class="col-lg-4">
+                    <input name="costPrice" required="" maxlength="9" minlength="1" class="form-control" type="text" placeholder="Cost price" th:value="${product.costPrice}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Stock Quantity</label>
+                <div class="col-lg-4">
+                    <input name="stockQuantity" required="" maxlength="9" minlength="1" class="form-control" type="text" placeholder="Quantity" th:value="${product.stockQuantity}"/>
+                </div>
+                <label class="col-lg-2 control-label">OnSale Price</label>
+                <div class="col-lg-4">
+                    <input name="onSalePrice" required="" maxlength="9" minlength="1" class="form-control" type="text" placeholder="Discount price" th:value="${product.onSalePrice}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Size</label>
+                <div class="col-lg-4">
+                    <input name="size" required="" maxlength="9" minlength="1" class="form-control" type="text" placeholder="Quantity" th:value="${product.stockQuantity}"/>
+                </div>
+                <label class="col-lg-2 control-label">Color</label>
+                <div class="col-lg-4">
+                    <input name="color" required="" maxlength="9" minlength="1" class="form-control" type="text" placeholder="Discount price" th:value="${product.onSalePrice}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Weight</label>
+                <div class="col-lg-4 form-inline">
+                    <input name="weight" required="" maxlength="9" minlength="1" class="form-control" type="text" placeholder="Quantity" th:value="${product.stockQuantity}"/>
+                    <th:block th:replace="layouts/_form :: select(name='weightUnit', clazz='', options=${ {ml:'ml', gm:'gm', kg:'kg'} })"></th:block>
+                </div>
+                <label class="col-lg-2 control-label">Is OnSale</label>
+                <div class="col-lg-4 toggle-flip">
+                    <label>
+                        <input name="isOnSale" th:checked="${product.isOnSale}" type="checkbox"/><span class="flip-indecator" data-toggle-on="TRUE" data-toggle-off="FALSE"></span>
+                    </label>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-2 control-label" for="textArea">Description</label>
                 <div class="col-lg-10">
-                    <textarea name="description" minlength="10" maxlength="1000" class="form-control" placeholder="Description" id="textArea" rows="3" th:text="${product.description}"></textarea>
+                    <textarea name="description" minlength="10" maxlength="1000" class="form-control" placeholder="Description" id="textArea" rows="4" th:text="${product.description}"></textarea>
                 </div>
             </div>
             <div class="form-group">

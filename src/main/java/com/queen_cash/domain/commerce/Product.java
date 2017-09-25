@@ -24,7 +24,7 @@ public class Product extends DomainBase {
     @NotNull
     private Double basePrice = 0.0;
     @NotNull
-    private Double salePrice = 0.0;
+    private Double onSalePrice = 0.0;
     @NotNull
     private Double costPrice = 0.0;
     @NotNull
@@ -32,8 +32,8 @@ public class Product extends DomainBase {
 
     private String size;
     private String color;
-    private String weight;
-    private String weightUnit;
+    private Double weight;
+    private String weightUnit;//kg, gm, ml
 
     public String getName() {
         return name;
@@ -51,12 +51,12 @@ public class Product extends DomainBase {
         this.description = description;
     }
 
-    public Boolean getOnSale() {
+    public Boolean getIsOnSale() {
         return isOnSale;
     }
 
-    public void setOnSale(Boolean onSale) {
-        isOnSale = onSale;
+    public void setIsOnSale(Boolean isOnSale) {
+        isOnSale = isOnSale;
     }
 
     public Boolean getActive() {
@@ -91,12 +91,12 @@ public class Product extends DomainBase {
         this.basePrice = basePrice;
     }
 
-    public Double getSalePrice() {
-        return salePrice;
+    public Double getOnSalePrice() {
+        return onSalePrice;
     }
 
-    public void setSalePrice(Double salePrice) {
-        this.salePrice = salePrice;
+    public void setOnSalePrice(Double onSalePrice) {
+        this.onSalePrice = onSalePrice;
     }
 
     public Double getCostPrice() {
@@ -131,11 +131,11 @@ public class Product extends DomainBase {
         this.color = color;
     }
 
-    public String getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 

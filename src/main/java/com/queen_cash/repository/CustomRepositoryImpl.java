@@ -69,7 +69,7 @@ public class CustomRepositoryImpl<T> extends SimpleJpaRepository<T, Serializable
         query.setFirstResult(start);
         query.setMaxResults(max);
         items = query.getResultList();
-        if (items.size() == 0) {
+        if (items.size() == 0 && start != 0) {
             query.setFirstResult(start-max);
             items = query.getResultList();
         }

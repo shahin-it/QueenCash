@@ -1,7 +1,6 @@
 package com.queen_cash.controllers.common;
 
 import com.queen_cash.domain.admin.Administrator;
-//import com.queen_cash.util.repo.AdminRepository;
 import com.queen_cash.repository.AdminRepository;
 import com.queen_cash.util.AppUtil;
 import org.springframework.beans.factory.annotation.Autowired;
