@@ -30,9 +30,9 @@ public class OederAdminController {
     }
 
     @RequestMapping("/edit")
-    String editCategory(Model model, Long id) {
+    String editOrder(Model model, Long id) {
         Order order = id == null ? new Order() : orderRepository.findOne(id);
-        model.addAttribute("category", order);
+        model.addAttribute("order", order);
         return "admin/order/edit";
     }
 
