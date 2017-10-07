@@ -1,7 +1,7 @@
 <div class="row tabular-body" xmlns:th="http://www.thymeleaf.org">
     <div class="col-md-12">
         <div class="card">
-            <span class="label label-info" th:text="|Showing ${#lists.size(products)} of ${count}|"></span>
+            <span class="label label-info" th:text="|Showing ${#lists.size(orders)} of ${count}|"></span>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -15,13 +15,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="product : ${products}">
-                        <td th:text="${product.id}"></td>
-                        <td th:text="${#strings.abbreviate(product.name, 30)}"></td>
-                        <td th:text="${#strings.abbreviate(product.createdBy?.name, 30)}"></td>
-                        <td th:text="${product.basePrice}"></td>
-                        <td><span th:class="|label ${product.active ? 'label-info' : 'label-danger'}|" th:text="${product.active ? 'Active' : 'InActive'}"></span></td>
-                        <td class="action-navigator btn-group" th:attr="data-id=${product.id}">
+                    <tr th:each="order : ${orders}">
+                        <td th:text="${order.id}"></td>
+                        <td th:text="${#strings.abbreviate(order.name, 30)}"></td>
+                        <td th:text="${#strings.abbreviate(order.createdBy?.name, 30)}"></td>
+                        <td th:text="${order.basePrice}"></td>
+                        <td><span th:class="|label ${order.active ? 'label-info' : 'label-danger'}|" th:text="${order.active ? 'Active' : 'InActive'}"></span></td>
+                        <td class="action-navigator btn-group" th:attr="data-id=${order.id}">
                             <span class="btn btn-info edit"><i class="fa fa-lg fa-edit"></i></span>
                             <span class="btn btn-warning remove"><i class="fa fa-lg fa-trash"></i></span>
                         </td>
