@@ -14,6 +14,8 @@ import java.util.Collection;
 @Entity(name = "orders")
 public class Order extends DomainBase {
 
+    private Boolean isInTrash = false;
+
     @OneToMany
     private Collection<OrderItem> orderItems = new ArrayList<>();
 
@@ -26,4 +28,44 @@ public class Order extends DomainBase {
     @NotNull
     @NotBlank
     private String salesManName;
+
+    public Boolean getInTrash() {
+        return isInTrash;
+    }
+
+    public void setInTrash(Boolean inTrash) {
+        isInTrash = inTrash;
+    }
+
+    public Collection<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Collection<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getSalesManName() {
+        return salesManName;
+    }
+
+    public void setSalesManName(String salesManName) {
+        this.salesManName = salesManName;
+    }
 }
