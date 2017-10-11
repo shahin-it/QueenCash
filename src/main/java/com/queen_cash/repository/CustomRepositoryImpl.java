@@ -91,10 +91,10 @@ public class CustomRepositoryImpl<T> extends SimpleJpaRepository<T, Serializable
     }
 
     public List findAllByCriteria(Map<String, ?> params) {
-        List<String> projections = (List) params.get("projection");
+        List<String> projections = (List) params.get("projections");
         List<Selection> selections = new ArrayList<>();
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery criteria = cb.createQuery();
+        CriteriaQuery criteria = cb.createQuery(getDomainClass());
         Root root = criteria.from(getDomainClass());
 
         List<Predicate> predicates = new ArrayList();
@@ -107,10 +107,9 @@ public class CustomRepositoryImpl<T> extends SimpleJpaRepository<T, Serializable
             projections.forEach((v)->{
                 selections.add(root.get(v));
             });
-            criteria.select(cb.construct(getDomainClass(), selections.toArray(new Selection[selections.size()])));
-        } else {
-            criteria.select(cb.construct(getDomainClass()));
+            criteria.where(cb.and(selections.toArray(new Selection[selections.size()])));
         }
-        return entityManager.createQuery(criteria).getResultList();
+        TypedQuery query = entityManager.createQuery(criteria);
+        return query.getResultList();
     }
 }
