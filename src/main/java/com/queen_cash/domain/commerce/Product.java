@@ -67,11 +67,11 @@ public class Product extends DomainBase {
         this.active = active;
     }
 
-    public Boolean getInTrash() {
+    public Boolean getIsInTrash() {
         return isInTrash;
     }
 
-    public void setInTrash(Boolean inTrash) {
+    public void setIsInTrash(Boolean inTrash) {
         isInTrash = inTrash;
     }
 

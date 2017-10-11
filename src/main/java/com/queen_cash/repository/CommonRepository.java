@@ -14,4 +14,5 @@ public interface CommonRepository<T> extends JpaRepository<T, Serializable> {
     List<T> findAll(Map<?, ?> params);
     long count(Map<?, ?> params);
     List<T> findAllByAny(Map<?, ?> params);
+    List findAllByCriteria(Map<String, ?> params);
 }

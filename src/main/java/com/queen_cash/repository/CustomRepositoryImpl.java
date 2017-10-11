@@ -11,10 +11,9 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -89,5 +88,29 @@ public class CustomRepositoryImpl<T> extends SimpleJpaRepository<T, Serializable
         }
         criteria.select(cb.count(root));
         return entityManager.createQuery(criteria).getSingleResult();
+    }
+
+    public List findAllByCriteria(Map<String, ?> params) {
+        List<String> projections = (List) params.get("projection");
+        List<Selection> selections = new ArrayList<>();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery criteria = cb.createQuery();
+        Root root = criteria.from(getDomainClass());
+
+        List<Predicate> predicates = new ArrayList();
+        if(params.get("isInTrash") != null) {
+            predicates.add(cb.equal(root.get("isInTrash"), params.get("isInTrash")));
+        }
+        criteria.where(cb.and());
+
+        if(projections != null && projections.size() > 0) {
+            projections.forEach((v)->{
+                selections.add(root.get(v));
+            });
+            criteria.select(cb.construct(getDomainClass(), selections.toArray(new Selection[selections.size()])));
+        } else {
+            criteria.select(cb.construct(getDomainClass()));
+        }
+        return entityManager.createQuery(criteria).getResultList();
     }
 }
