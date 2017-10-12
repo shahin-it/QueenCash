@@ -1,6 +1,7 @@
 package com.queen_cash.repository;
 
 import com.queen_cash.domain.admin.Administrator;
+import com.queen_cash.model.Projection;
 import com.queen_cash.util.AppUtil;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -10,12 +11,12 @@ import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
 
 @NoRepositoryBean
 public class CustomRepositoryImpl<T> extends SimpleJpaRepository<T, Serializable> implements CommonRepository<T> {
@@ -91,25 +92,34 @@ public class CustomRepositoryImpl<T> extends SimpleJpaRepository<T, Serializable
     }
 
     public List findAllByCriteria(Map<String, ?> params) {
+        List<Map<String, ?>> result = new ArrayList<>();
         List<String> projections = (List) params.get("projections");
         List<Selection> selections = new ArrayList<>();
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery criteria = cb.createQuery(getDomainClass());
+        CriteriaQuery criteria = cb.createQuery();
         Root root = criteria.from(getDomainClass());
 
         List<Predicate> predicates = new ArrayList();
         if(params.get("isInTrash") != null) {
             predicates.add(cb.equal(root.get("isInTrash"), params.get("isInTrash")));
         }
-        criteria.where(cb.and());
+        criteria.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
 
         if(projections != null && projections.size() > 0) {
             projections.forEach((v)->{
-                selections.add(root.get(v));
+                selections.add(root.get(v).alias(v));
             });
-            criteria.where(cb.and(selections.toArray(new Selection[selections.size()])));
+            criteria.multiselect(selections);
         }
-        TypedQuery query = entityManager.createQuery(criteria);
-        return query.getResultList();
+        Query query = entityManager.createQuery(criteria);
+        query.getResultList().forEach((v)-> {
+            Object[] val = (Object[]) v;
+            Map row = new HashMap();
+            for(int i = 0; i < projections.size(); i++) {
+                row.put(projections.get(i), val[i]);
+            }
+            result.add(row);
+        });
+        return result;
     }
 }
