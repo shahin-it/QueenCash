@@ -57,7 +57,7 @@
                 <label class="col-lg-2 control-label">Weight</label>
                 <div class="col-lg-4 form-inline">
                     <input name="weight" required="" maxlength="9" minlength="1" class="form-control" type="text" placeholder="Quantity" th:value="${product.stockQuantity}"/>
-                    <th:block th:replace="layouts/_form :: select(name='weightUnit', clazz='', options=${ {ml:'ml', gm:'gm', kg:'kg'} })"></th:block>
+                    <th:block th:include="form/select(name='weightUnit', clazz='', options=${ {ml:'ml', gm:'gm', kg:'kg'} })"></th:block>
                 </div>
                 <label class="col-lg-2 control-label">Is OnSale</label>
                 <div class="col-lg-4 toggle-flip">

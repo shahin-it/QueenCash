@@ -1,7 +1,6 @@
 package com.queen_cash.repository;
 
 import com.queen_cash.domain.admin.Administrator;
-import com.queen_cash.model.Projection;
 import com.queen_cash.util.AppUtil;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,8 +14,10 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @NoRepositoryBean
 public class CustomRepositoryImpl<T> extends SimpleJpaRepository<T, Serializable> implements CommonRepository<T> {
@@ -91,9 +92,8 @@ public class CustomRepositoryImpl<T> extends SimpleJpaRepository<T, Serializable
         return entityManager.createQuery(criteria).getSingleResult();
     }
 
-    public List findAllByCriteria(Map<String, ?> params) {
+    public List findAllByCriteria(Map<String, ?> params, String... projections) {
         List<Map<String, ?>> result = new ArrayList<>();
-        List<String> projections = (List) params.get("projections");
         List<Selection> selections = new ArrayList<>();
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery criteria = cb.createQuery();
@@ -105,18 +105,18 @@ public class CustomRepositoryImpl<T> extends SimpleJpaRepository<T, Serializable
         }
         criteria.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
 
-        if(projections != null && projections.size() > 0) {
-            projections.forEach((v)->{
-                selections.add(root.get(v).alias(v));
-            });
+        if(projections != null && projections.length > 0) {
+            for(String p:projections){
+                selections.add(root.get(p).alias(p));
+            }
             criteria.multiselect(selections);
         }
         Query query = entityManager.createQuery(criteria);
         query.getResultList().forEach((v)-> {
             Object[] val = (Object[]) v;
             Map row = new HashMap();
-            for(int i = 0; i < projections.size(); i++) {
-                row.put(projections.get(i), val[i]);
+            for(int i = 0; i < projections.length; i++) {
+                row.put(projections[i], val[i]);
             }
             result.add(row);
         });

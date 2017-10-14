@@ -1,0 +1,7 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <select th:name="${name}" th:class="|form-control ${clazz}|">
+        <th:block th:each="option: ${options}">
+            <option th:value="${option.id}" th:text="${option.name}"></option>
+        </th:block>
+    </select>
+</th:block>

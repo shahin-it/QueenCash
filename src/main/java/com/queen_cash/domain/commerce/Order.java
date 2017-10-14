@@ -2,19 +2,23 @@ package com.queen_cash.domain.commerce;
 
 import com.queen_cash.domain.Customer;
 import com.queen_cash.model.DomainBase;
+import com.queen_cash.util.AppUtil;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 @Entity(name = "orders")
 public class Order extends DomainBase {
 
     private Boolean isInTrash = false;
+
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date orderDate = AppUtil.currentDateTime();
 
     @OneToMany
     private Collection<OrderItem> orderItems = new ArrayList<>();
@@ -25,9 +29,13 @@ public class Order extends DomainBase {
     @NotNull
     @NotBlank
     private String customerName;
+
     @NotNull
     @NotBlank
     private String salesManName;
+
+    @Column(length = 500)
+    private String note;
 
     public Boolean getInTrash() {
         return isInTrash;
@@ -67,5 +75,21 @@ public class Order extends DomainBase {
 
     public void setSalesManName(String salesManName) {
         this.salesManName = salesManName;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 }

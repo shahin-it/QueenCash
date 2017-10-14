@@ -1,0 +1,76 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <form class="form-horizontal" method="post" th:action="@{/orderAdmin/save}">
+        <input type="hidden" name="id" th:value="${order.id}"/>
+        <fieldset>
+            <legend th:text="${order.id != null ? 'Edit order' : 'Create order'}"></legend>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Order Date</label>
+                <div class="col-lg-4">
+                    <input name="created" required="" class="form-control" type="text" placeholder="Order date" th:value="${order.orderDate}"/>
+                </div>
+                <label class="col-lg-2 control-label">Customer</label>
+                <div class="col-lg-4">
+                    <th:block th:include="form/domainSelect(name='customer', value=${order.customer?.id}, clazz='', options=${@customerService.getValidCustomer()})"></th:block>
+                </div>
+            </div>
+            <div class="product-selection">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Product</label>
+                    <div class="col-lg-4">
+                        <th:block th:include="form/domainSelect(name='', clazz='product', options=${@productService.getValidProductList()})"></th:block>
+                    </div>
+                    <label class="col-lg-2 control-label">Unit Price</label>
+                    <div class="col-lg-4">
+                        <input required="" maxlength="9" minlength="1" class="form-control unit-price" type="text" placeholder="Unit Price"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Quantity</label>
+                    <div class="col-lg-4">
+                        <input required="" maxlength="9" minlength="1" class="form-control quantity" type="text" placeholder="Product Quantity"/>
+                    </div>
+                    <label class="col-lg-2 control-label">Total</label>
+                    <div class="col-lg-2 total-disp"><input class="form-control" type="text" value="0.00" disabled=""/></div>
+                    <div class="col-lg-2">
+                        <button class="btn btn-primary icon-btn add-to-cart"><i class="fa fa-plus"></i>Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group cart-container">
+                <label class="col-lg-2 control-label">Cart List</label>
+                <div class="col-lg-10">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total Price</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="orderItem : ${order.orderItems}">
+
+                        </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label" for="textArea">Note</label>
+                <div class="col-lg-10">
+                    <textarea name="notes" minlength="10" maxlength="1000" class="form-control" placeholder="Description" id="textArea" rows="4" th:text="${order.note}"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button class="btn btn-default cancel" type="button">Cancel</button>
+                    <button class="btn btn-success save-and-new" type="button">Submit and New</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
