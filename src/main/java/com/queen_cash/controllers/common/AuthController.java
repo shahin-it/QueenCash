@@ -33,10 +33,13 @@ public class AuthController {
     }
 
     @RequestMapping("/authenticateAdmin")
-    public String authenticateAdmin(String email, String password, Boolean remember) {
+    public String authenticateAdmin(String email, String password, Boolean remember, String referrer) {
         Administrator administrator = adminRepository.findByEmailAndPassword(email, password);
         if(administrator != null) {
             AppUtil.addSessionAttr("admin", administrator.getId());
+            if(referrer != null && !referrer.equals("")) {
+                return "redirect:" + referrer;
+            }
             return "redirect:"+AppUtil.baseUrl()+"admin";
         }
         return "redirect:" + AppUtil.baseUrl() + "auth/adminLogin";

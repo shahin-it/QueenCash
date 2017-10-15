@@ -25,14 +25,15 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
         Method method = handlerMethod.getMethod();
         if(canonicalName.startsWith(NameConstant.ADMIN_PACKAGE)) {
             Long adminId = AppUtil.loggedAdmin();
+            String loginUri = "auth/adminLogin?referer=" + request.getRequestURI();
             if(adminId == null) {
-                response.sendRedirect(AppUtil.baseUrl() + "auth/adminLogin");
+                response.sendRedirect(AppUtil.baseUrl() + loginUri);
                 return false;
             } else {
                 Administrator admin = adminRepository.findOne(adminId);
                 if(admin.getId() != adminId) {
                     AppUtil.removeSessionAttr("admin");
-                    response.sendRedirect(AppUtil.baseUrl() + "auth/adminLogin");
+                    response.sendRedirect(AppUtil.baseUrl() + loginUri);
                     return false;
                 }
             }

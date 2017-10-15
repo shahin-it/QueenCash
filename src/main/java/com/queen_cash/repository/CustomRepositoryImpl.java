@@ -106,7 +106,7 @@ public class CustomRepositoryImpl<T> extends SimpleJpaRepository<T, Serializable
         criteria.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
 
         if(projections != null && projections.length > 0) {
-            for(String p:projections){
+            for(String p : projections) {
                 selections.add(root.get(p).alias(p));
             }
             criteria.multiselect(selections);
