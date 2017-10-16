@@ -25,9 +25,9 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
         Method method = handlerMethod.getMethod();
         if(canonicalName.startsWith(NameConstant.ADMIN_PACKAGE)) {
             Long adminId = AppUtil.loggedAdmin();
-            String loginUri = "auth/adminLogin?referer=" + request.getRequestURI();
+            String loginUri = "auth/adminLogin";
             if(adminId == null) {
-                response.sendRedirect(AppUtil.baseUrl() + loginUri);
+                response.sendRedirect(AppUtil.baseUrl() + loginUri + "?referrer=" + request.getRequestURI());
                 return false;
             } else {
                 Administrator admin = adminRepository.findOne(adminId);
