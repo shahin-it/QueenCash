@@ -1,6 +1,7 @@
 package com.queen_cash.domain;
 
 import com.queen_cash.model.DomainBase;
+import com.queen_cash.repository.CommonRepository;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -11,10 +12,10 @@ import javax.validation.constraints.Size;
 public class Customer extends DomainBase {
 
     @NotBlank
+    @NotNull
     @Size(min = 3, max = 200)
     private String firstName;
 
-    @NotNull
     @Size(min = 3, max = 200)
     private String lastName;
 
@@ -59,5 +60,16 @@ public class Customer extends DomainBase {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public static void initialize(CommonRepository customerRepo) {
+        if(customerRepo.count() == 0) {
+            Customer customer = new Customer();
+            customer.setFirstName("Customer");
+            customer.setEmail("customer@queencash.com");
+            customer.setPassword("customer");
+
+            customerRepo.save(customer);
+        }
     }
 }

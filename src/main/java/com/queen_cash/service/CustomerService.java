@@ -18,7 +18,7 @@ public class CustomerService {
         List customers = new ArrayList();
         customerRepository.findAllByCriteria(new HashMap<>(), "id", "firstName", "lastName").forEach((v)-> {
             Map customer = (Map) v;
-            customer.put("name", customer.get("firstName") + (customer.get("firstName") !=null ? " " + customer.get("firstName") : ""));
+            customer.put("name", customer.get("firstName") + (customer.get("lastName") !=null ? " " + customer.get("lastName") : ""));
             customers.add(customer);
         });
         return customers;
