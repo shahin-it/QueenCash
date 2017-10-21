@@ -17,7 +17,11 @@
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Product</label>
                     <div class="col-lg-4">
-                        <th:block th:include="form/domainSelect(name='', clazz='product', options=${@productService.getValidProductList()})"></th:block>
+                        <select th:name="${name}" class="form-control product">
+                            <th:block th:each="product: ${@productService.getValidProductList()}">
+                                <option th:value="${product.id}" th:text="${product.name}" th:attr="data-enable-stock=${product.enableStock}, data-base-price=${product.basePrice}, data-onsale-price=${product.onSalePrice}, data-stock=${product.stockQuantity}"></option>
+                            </th:block>
+                        </select>
                     </div>
                     <label class="col-lg-2 control-label">Unit Price</label>
                     <div class="col-lg-4">
@@ -30,9 +34,9 @@
                         <input required="" maxlength="9" minlength="1" class="form-control quantity" type="text" placeholder="Product Quantity"/>
                     </div>
                     <label class="col-lg-2 control-label">Total</label>
-                    <div class="col-lg-2 total-disp"><input class="form-control" type="text" value="0.00" disabled=""/></div>
+                    <div class="col-lg-2 total-disp"><input class="form-control total-price" type="text" value="0.00" disabled=""/></div>
                     <div class="col-lg-2">
-                        <button class="btn btn-primary icon-btn add-to-cart"><i class="fa fa-plus"></i>Add to Cart</button>
+                        <button type="button" class="btn btn-primary icon-btn add-to-cart"><i class="fa fa-plus"></i>Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -44,15 +48,38 @@
                         <tr>
                             <th>ID</th>
                             <th>Product</th>
-                            <th>Quantity</th>
                             <th>Unit Price</th>
+                            <th>Quantity</th>
                             <th>Total Price</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <th:block th:each="orderItem : ${order.orderItems}">
-
+                        <tr class="item-template" style="display: none">
+                            <td class="id"><span class="value"></span><input type="hidden" oname="item"/></td>
+                            <td class="item"><span class="value"></span><input type="hidden" oname="name"/></td>
+                            <td class="unit-price"><input type="text" oname="unitPrice"/></td>
+                            <td class="quantity"><input name="quantity" type="text"/></td>
+                            <td class="total-price">
+                                <span class="value"></span>
+                                <input type="hidden" oname="costPrice"/>
+                                <input type="hidden" oname="totalPrice"/>
+                            </td>
+                            <td class="action-navigator btn-group"><span class="btn btn-warning remove"><i class="fa fa-lg fa-remove"></i></span></td>
+                        </tr>
+                        <th:block th:each="item : ${order.orderItems}">
+                            <tr class="order-item">
+                                <td class="id"><span class="value" th:text="${item.productId}"></span><input type="hidden" name="item" th:value="${item.id}"/></td>
+                                <td class="item"><span class="value" th:text="${item.name}"></span><input type="hidden" th:name="${item.id + '.name'}" th:value="${item.name}"/></td>
+                                <td class="unit-price"><input type="text" th:name="${item.id + '.unitPrice'}" th:value="${item.unitPrice}"/></td>
+                                <td class="quantity"><input type="text" th:name="${item.id + '.quantity'}" th:value="${item.quantity}"/></td>
+                                <td class="total-price">
+                                    <span class="value" th:text="${item.totalPrice}"></span>
+                                    <input type="hidden" th:name="${item.id + '.costPrice'}" th:value="${item.costPrice}"/>
+                                    <input type="hidden" th:name="${item.id + '.totalPrice'}" th:value="${item.totalPrice}"/>
+                                </td>
+                                <td class="action-navigator btn-group"><span class="btn btn-warning remove"><i class="fa fa-lg fa-remove"></i></span></td>
+                            </tr>
                         </th:block>
                         </tbody>
                     </table>

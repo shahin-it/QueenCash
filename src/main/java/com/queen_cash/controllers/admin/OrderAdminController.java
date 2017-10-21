@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("orderAdmin")
-public class OederAdminController {
+public class OrderAdminController {
     @Autowired
     OrderRepository orderRepository;
     @Autowired

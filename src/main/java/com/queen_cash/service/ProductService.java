@@ -17,6 +17,6 @@ public class ProductService {
         Map params = new HashMap<>();
         params.put("active", true);
         params.put("isInTrash", false);
-        return productRepository.findAllByCriteria(params, "id", "name");
+        return productRepository.findAllByCriteria(params, "id", "name", "enableStock", "costPrice", "basePrice", "onSalePrice", "stockQuantity");
     }
 }

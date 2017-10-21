@@ -37,6 +37,10 @@ public class Order extends DomainBase {
     @Column(length = 500)
     private String note;
 
+    public void addToOrderItems(OrderItem orderItem) {
+        orderItems.add(orderItem);
+    }
+
     public Boolean getInTrash() {
         return isInTrash;
     }

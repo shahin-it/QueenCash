@@ -22,8 +22,9 @@ $(function() {
             var _self = this;
             _self.body.on("click", ".add-new-button, .action-navigator .edit", function() {
                 var data = this.jq.parent().data() || {};
-                var popup = sui.renderCreateEdit(tab.createEditUrl, data, {
+                sui.renderCreateEdit.call(_self, tab.createEditUrl, data, {
                     target: _self.body,
+                    popupLoad: _self.onCreateEditLoad,
                     success: function() {
                         _self.reload();
                     }

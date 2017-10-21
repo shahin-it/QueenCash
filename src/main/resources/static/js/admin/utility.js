@@ -180,11 +180,12 @@ var sui = {
         });
     },
     renderCreateEdit: function (url, data, config) {
-        var content
+        var content, _self = this;
         config = $.extend({
             target: $(".sui-tabular-content").first(),
             class: "sidebar-mini fixed",
             title: "",
+            popupLoad: null,
             preSubmit: null
         }, config);
         data = $.extend({
@@ -207,7 +208,9 @@ var sui = {
                     body.loader(false);
                 },
                 success: function(resp) {
-                    panelLoaded(resp.jq);
+                    resp = resp.jq;
+                    panelLoaded(resp);
+                    config.popupLoad && config.popupLoad.call(_self, resp);
                 }
             });
         }
