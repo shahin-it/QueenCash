@@ -19,7 +19,7 @@
                     <div class="col-lg-4">
                         <select th:name="${name}" class="form-control product">
                             <th:block th:each="product: ${@productService.getValidProductList()}">
-                                <option th:value="${product.id}" th:text="${product.name}" th:attr="data-enable-stock=${product.enableStock}, data-base-price=${product.basePrice}, data-onsale-price=${product.onSalePrice}, data-stock=${product.stockQuantity}"></option>
+                                <option th:value="${product.id}" th:text="${product.name}" th:attr="data-enable-stock=${product.enableStock}, data-base-price=${product.basePrice}, data-cost-price=${product.costPrice}, data-onsale-price=${product.onSalePrice}, data-stock=${product.stockQuantity}"></option>
                             </th:block>
                         </select>
                     </div>
@@ -43,7 +43,7 @@
             <div class="form-group cart-container">
                 <label class="col-lg-2 control-label">Cart List</label>
                 <div class="col-lg-10">
-                    <table class="table table-hover">
+                    <table class="table table-hover cart-table">
                         <thead>
                         <tr>
                             <th>ID</th>
@@ -55,15 +55,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="item-template" style="display: none">
-                            <td class="id"><span class="value"></span><input type="hidden" oname="item"/></td>
-                            <td class="item"><span class="value"></span><input type="hidden" oname="name"/></td>
-                            <td class="unit-price"><input type="text" oname="unitPrice"/></td>
-                            <td class="quantity"><input name="quantity" type="text"/></td>
+                        <tr class="order-item item-template" style="display: none">
+                            <td class="id"><span class="value"></span><input disabled="true" type="hidden" name="item"/></td>
+                            <td class="item"><span class="value"></span><input disabled="true" type="hidden" name="name"/></td>
+                            <td class="unit-price"><input disabled="true" type="text" name="unitPrice"/></td>
+                            <td class="quantity"><input disabled="true" name="quantity" type="text"/></td>
                             <td class="total-price">
                                 <span class="value"></span>
-                                <input type="hidden" oname="costPrice"/>
-                                <input type="hidden" oname="totalPrice"/>
+                                <input class="cost-price" disabled="true" type="hidden" name="costPrice"/>
+                                <input class="total" disabled="true" type="hidden" name="totalPrice"/>
                             </td>
                             <td class="action-navigator btn-group"><span class="btn btn-warning remove"><i class="fa fa-lg fa-remove"></i></span></td>
                         </tr>
