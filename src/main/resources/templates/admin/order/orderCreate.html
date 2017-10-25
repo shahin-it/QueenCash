@@ -46,26 +46,26 @@
                     <table class="table table-hover cart-table">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Product</th>
-                            <th>Unit Price</th>
-                            <th>Quantity</th>
-                            <th>Total Price</th>
-                            <th>Action</th>
+                            <th width="10%">ID</th>
+                            <th width="30%">Product</th>
+                            <th width="10%">Unit Price</th>
+                            <th width="10%">Quantity</th>
+                            <th width="10%">Total Price</th>
+                            <th width="10%">Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr class="order-item item-template" style="display: none">
                             <td class="id"><span class="value"></span><input disabled="true" type="hidden" name="item"/></td>
                             <td class="item"><span class="value"></span><input disabled="true" type="hidden" name="name"/></td>
-                            <td class="unit-price"><input disabled="true" type="text" name="unitPrice"/></td>
-                            <td class="quantity"><input disabled="true" name="quantity" type="text"/></td>
+                            <td class="unit-price"><input class="form-control" disabled="true" type="text" name="unitPrice"/></td>
+                            <td class="quantity"><input class="form-control" disabled="true" name="quantity" type="text"/></td>
                             <td class="total-price">
                                 <span class="value"></span>
                                 <input class="cost-price" disabled="true" type="hidden" name="costPrice"/>
                                 <input class="total" disabled="true" type="hidden" name="totalPrice"/>
                             </td>
-                            <td class="action-navigator btn-group"><span class="btn btn-warning remove"><i class="fa fa-lg fa-remove"></i></span></td>
+                            <td class="action-navigator btn-group"><span class="btn btn-warning remove"><i class="fa fa-remove"></i></span></td>
                         </tr>
                         <th:block th:each="item : ${order.orderItems}">
                             <tr class="order-item">
@@ -78,7 +78,7 @@
                                     <input type="hidden" th:name="${item.id + '.costPrice'}" th:value="${item.costPrice}"/>
                                     <input type="hidden" th:name="${item.id + '.totalPrice'}" th:value="${item.totalPrice}"/>
                                 </td>
-                                <td class="action-navigator btn-group"><span class="btn btn-warning remove"><i class="fa fa-lg fa-remove"></i></span></td>
+                                <td class="action-navigator btn-group"><span class="btn btn-warning remove"><i class="fa fa-remove"></i></span></td>
                             </tr>
                         </th:block>
                         </tbody>

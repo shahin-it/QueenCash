@@ -1,5 +1,6 @@
 package com.queen_cash.domain.commerce;
 
+import com.queen_cash.constants.DomainConstant;
 import com.queen_cash.model.DomainBase;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -28,12 +29,15 @@ public class Product extends DomainBase {
     @NotNull
     private Double costPrice = 0.0;
     @NotNull
+    private Double discount = 0D;
+    @NotNull
     private Long stockQuantity = 0L;
 
     private String size;
     private String color;
     private Double weight;
-    private String weightUnit;//kg, gm, ml
+    private String weightUnit = "gm";//kg, gm, ml
+    private String discountUnit = "percent";//percent, unit
 
     public String getName() {
         return name;
@@ -145,5 +149,21 @@ public class Product extends DomainBase {
 
     public void setWeightUnit(String weightUnit) {
         this.weightUnit = weightUnit;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public String getDiscountUnit() {
+        return discountUnit;
+    }
+
+    public void setDiscountUnit(String discountUnit) {
+        this.discountUnit = discountUnit;
     }
 }

@@ -22,6 +22,9 @@ public class OrderItem extends DomainBase {
     @NotNull
     private Double costPrice = 0.0;
 
+    @NotNull
+    private Double doscount = 0.0;
+
     public double getTotalPrice() {
         return unitPrice * quantity;
     }
@@ -64,5 +67,13 @@ public class OrderItem extends DomainBase {
 
     public void setCostPrice(Double costPrice) {
         this.costPrice = costPrice;
+    }
+
+    public Double getDoscount() {
+        return doscount;
+    }
+
+    public void setDoscount(Double doscount) {
+        this.doscount = doscount;
     }
 }
