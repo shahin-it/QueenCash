@@ -1,5 +1,6 @@
 /out
 *.iml
+*.log
 /logs
 /.git
 /.idea
