@@ -15,3 +15,4 @@ readme.md
 .gradle/
 /.nb-gradle/
 build/
+gradle/wrapper/gradle-4.4-bin.zip
